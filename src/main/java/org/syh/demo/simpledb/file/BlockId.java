@@ -1,16 +1,16 @@
 package org.syh.demo.simpledb.file;
 
 public class BlockId {
-    private String fileName;
+    private String filename;
     private int blockNum;
 
-    public BlockId(String fileName, int blockNum) {
-        this.fileName = fileName;
+    public BlockId(String filename, int blockNum) {
+        this.filename = filename;
         this.blockNum = blockNum;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilename() {
+        return filename;
     }
 
     public int getBlockNum() {
@@ -23,11 +23,11 @@ public class BlockId {
         }
 
         BlockId blk = (BlockId) obj;
-        return fileName.equals(blk.fileName) && blockNum == blk.blockNum;
+        return filename.equals(blk.filename) && blockNum == blk.blockNum;
     }
 
     public String toString() {
-        return "[file: " + fileName + ", block: " + blockNum + "]";
+        return "[file: " + filename + ", block: " + blockNum + "]";
     }
 
     public int hashCode() {

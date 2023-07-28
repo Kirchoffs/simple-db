@@ -25,6 +25,14 @@ public class Page {
         buffer.putInt(offset, val);
     }
 
+    public int getFirstInt() {
+        return getInt(0);
+    }
+
+    public void setFirstInt(int val) {
+        setInt(0, val);
+    }
+
     public byte[] getBytes(int offset) {
         buffer.position(offset);
         int length = buffer.getInt();
