@@ -1,5 +1,7 @@
 package org.syh.demo.simplesb.log;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.syh.demo.simpledb.file.FileManager;
 import org.syh.demo.simpledb.file.Page;
@@ -10,16 +12,26 @@ import java.util.Iterator;
 
 public class LogManagerTest {
     private static String DIR_PATH = "src/test/resources/log-manager-test/";
-    private static String FILE_NAME = "test-log-file";
-    private static int TEST_BLOCK_SIZE = 256;
+    private static String LOG_FILE_NAME = "test-log-file";
+    private static int BLOCK_SIZE = 256;
+
+    private File directory;
+
+    @Before
+    public void setup() {
+        directory = new File(DIR_PATH);
+        new File(directory, LOG_FILE_NAME).delete();
+    }
+
+    @After
+    public void cleanup() {
+        new File(directory, LOG_FILE_NAME).delete();
+    }
 
     @Test
     public void LogManagerTest() {
-        File directory = new File(DIR_PATH);
-        new File(directory, FILE_NAME).delete();
-
-        FileManager fileManager = new FileManager(directory, TEST_BLOCK_SIZE);
-        LogManager logManager = new LogManager(fileManager, "test-log-file");
+        FileManager fileManager = new FileManager(directory, BLOCK_SIZE);
+        LogManager logManager = new LogManager(fileManager, LOG_FILE_NAME);
 
         printLogRecords(logManager, "The initial empty log file: ");
 
@@ -30,7 +42,7 @@ public class LogManagerTest {
         logManager.flush(65);
         printLogRecords(logManager, "The log file now has these records: ");
 
-        new File(directory, FILE_NAME).delete();
+        new File(directory, LOG_FILE_NAME).delete();
     }
 
     private void printLogRecords(LogManager logManager, String msg) {

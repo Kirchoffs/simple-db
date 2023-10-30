@@ -11,7 +11,7 @@ public class LogManager {
     private String logFile;
     private Page logPage;
     private BlockId logBlockId;
-    private int latestLSN = 0; // LSN: Log Sequence Number
+    private int latestLSN = 0; // LSN: Log Sequence Number, PostgreSQL has similar term.
     private int lastSavedLSN = 0;
 
     public LogManager(FileManager fileManager, String logFile) {
@@ -20,17 +20,17 @@ public class LogManager {
 
         logPage = new Page(new byte[fileManager.getBlockSize()]);
 
-        int logSize = fileManager.length(logFile);
-        if (logSize == 0) {
+        int logFileBlockSize = fileManager.length(logFile);
+        if (logFileBlockSize == 0) {
             logBlockId = appendNewBlock();
         } else {
-            logBlockId = new BlockId(logFile, logSize - 1);
+            logBlockId = new BlockId(logFile, logFileBlockSize - 1);
             fileManager.read(logBlockId, logPage);
         }
     }
 
     public void flush(int lsn) {
-        if (lsn >= lastSavedLSN) {
+        if (lsn > lastSavedLSN) {
             flush();
         }
     }
@@ -40,6 +40,7 @@ public class LogManager {
 
         int recordSize = logRecord.length;
         int bytesNeeded = recordSize + Integer.BYTES;
+        // The first byte is used to store the position of the upcoming log
         if (boundary - bytesNeeded < Integer.BYTES) {
             flush();
             logBlockId = appendNewBlock();

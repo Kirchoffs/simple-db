@@ -28,6 +28,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Read from disk to page
+     * @param blockId
+     * @param page
+     */
     public synchronized void read(BlockId blockId, Page page) {
         try {
             RandomAccessFile f = getFile(blockId.getFilename());
@@ -38,6 +43,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Write to disk from page
+     * @param blockId
+     * @param page
+     */
     public synchronized void write(BlockId blockId, Page page) {
         try {
             RandomAccessFile f = getFile(blockId.getFilename());
@@ -75,8 +85,8 @@ public class FileManager {
     private RandomAccessFile getFile(String filename) throws IOException {
         RandomAccessFile f = openFiles.get(filename);
         if (f == null) {
-            File dbTable = new File(dbDirectory, filename);
-            f = new RandomAccessFile(dbTable, "rws");
+            File dbFile = new File(dbDirectory, filename);
+            f = new RandomAccessFile(dbFile, "rws");
             openFiles.put(filename, f);
         }
         return f;
