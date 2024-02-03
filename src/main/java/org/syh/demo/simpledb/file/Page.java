@@ -58,7 +58,7 @@ public class Page {
     }
 
     public static int maxLength(int strlen) {
-        int bytesPerChar = (int) CHARSET.newEncoder().maxBytesPerChar();
+        int bytesPerChar = (int) Math.ceil(CHARSET.newEncoder().maxBytesPerChar());
         return Integer.BYTES + strlen * bytesPerChar;
     }
 

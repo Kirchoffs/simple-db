@@ -15,5 +15,5 @@ When the database system requests that a particular log record be written to dis
 The first integer of the page represents the position values for the upcoming log entry to be appended. 
 It's initialized with the page size value. For instance, if the page size is 100 bytes, then the first integer is set to 100.
 
-As logs are appended, the position value moves backwards. Imagine appending a new log entry of 10 bytes. 
-This entry would be stored in positions 90 to 100, causing the initial integer value of the page to be updated to 90.
+As logs are appended, the position value moves backwards. Imagine appending a new log entry of 15 bytes. 
+This entry would be stored in positions 85 to 100, causing the initial integer value of the page to be updated to 85.
