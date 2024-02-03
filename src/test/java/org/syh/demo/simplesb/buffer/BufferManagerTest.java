@@ -54,7 +54,7 @@ public class BufferManagerTest {
 
         try {
             System.out.println("Attempting to pin block 3...");
-            buffers[5] = bufferManager.pin(new BlockId(DATA_FILE_NAME, 3)); // will not work; no buffers left
+            buffers[5] = bufferManager.pin(new BlockId(DATA_FILE_NAME, 3)); // will not work since no buffers left
             Assert.fail();
         } catch(BufferAbortException e) {
             System.out.println("Exception: No available buffers");

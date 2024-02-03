@@ -11,8 +11,10 @@ public class LogManager {
     private String logFile;
     private Page logPage;
     private BlockId logBlockId;
-    private int latestLSN = 0; // LSN: Log Sequence Number, PostgreSQL has similar term.
-    private int lastSavedLSN = 0;
+    private int latestLSN = -1;   // LSN: Log Sequence Number, PostgreSQL has similar term.
+                                  // LSM starts from 0, so the initial unset value is -1.
+                                  // When append a new log record, the latestLSN will increase by 1 and be returned.
+    private int lastSavedLSN = -1; // The latest LSN that has been saved to disk.
 
     public LogManager(FileManager fileManager, String logFile) {
         this.fileManager = fileManager;
@@ -39,7 +41,7 @@ public class LogManager {
         int boundary = logPage.getFirstInt();
 
         int recordSize = logRecord.length;
-        int bytesNeeded = recordSize + Integer.BYTES;
+        int bytesNeeded = recordSize + Integer.BYTES; // content of logRecord + length of logRecord
         // The first byte is used to store the position of the upcoming log
         if (boundary - bytesNeeded < Integer.BYTES) {
             flush();
@@ -48,11 +50,11 @@ public class LogManager {
         }
 
         int recordPosition = boundary - bytesNeeded;
-        logPage.setBytes(recordPosition, logRecord);
+        logPage.setBytes(recordPosition, logRecord); // It will write the length of the logRecord first, then the logRecord
         logPage.setFirstInt(recordPosition);
 
         latestLSN += 1;
-        return latestLSN;
+        return latestLSN; // Return the lsn of the log record
     }
 
     public Iterator<byte[]> iterator() {

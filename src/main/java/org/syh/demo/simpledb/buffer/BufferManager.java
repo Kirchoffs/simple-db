@@ -8,7 +8,7 @@ import org.syh.demo.simpledb.log.LogManager;
 public class BufferManager {
     private int numAvailable;
     private Buffer[] bufferPool;
-    private static final long MAX_TIME = 10000; // 10 seconds
+    private static final long MAX_WAIT_TIME = 10000; // 10 seconds
 
     public BufferManager(FileManager fileManager, LogManager logManager, int bufferPoolSize) {
         bufferPool = new Buffer[bufferPoolSize];
@@ -37,7 +37,7 @@ public class BufferManager {
     }
 
     private Buffer chooseUnpinnedBuffer() {
-        for (Buffer buffer: bufferPool) {
+        for (Buffer buffer : bufferPool) {
             if (!buffer.isPinned()) {
                 return buffer;
             }
@@ -51,7 +51,7 @@ public class BufferManager {
      * @return
      */
     private Buffer findExistingBuffer(BlockId targetBlockId) {
-        for (Buffer buffer: bufferPool) {
+        for (Buffer buffer : bufferPool) {
             BlockId blockId = buffer.getBlockId();
             if (blockId != null && blockId.equals(targetBlockId)) {
                 return buffer;
@@ -65,7 +65,7 @@ public class BufferManager {
             long timestamp = System.currentTimeMillis();
             Buffer buffer = tryToPin(blockId);
             while (buffer == null && !waitingTooLong(timestamp)) {
-                wait(MAX_TIME);
+                wait(MAX_WAIT_TIME);
                 buffer = tryToPin(blockId);
             }
 
@@ -88,7 +88,7 @@ public class BufferManager {
     }
 
     public synchronized void flushAll(int txNum) {
-        for (Buffer buffer: bufferPool) {
+        for (Buffer buffer : bufferPool) {
             if (buffer.modifyingTx() == txNum) {
                 buffer.flush();
             }
@@ -96,7 +96,7 @@ public class BufferManager {
     }
 
     private boolean waitingTooLong(long startTime) {
-        return System.currentTimeMillis() - startTime > MAX_TIME;
+        return System.currentTimeMillis() - startTime > MAX_WAIT_TIME;
     }
 
     public synchronized int getNumAvailable() {

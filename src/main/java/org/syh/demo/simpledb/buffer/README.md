@@ -35,6 +35,8 @@ Once all pages have been allocated, the buffer manager will begin replacing page
   stopping when a page is replaced and starting when another replacement is required.
 
 ## Block & Page & Buffer
-Block -> Buffer
+Block -> Page
 
-The underlying data of Buffer is stored on the corresponding Page.
+The underlying data (on disk) of Buffer is stored on the corresponding Page.
+
+A Buffer is the object that contains some status information of a page. A buffer object has both its blockId and its page.

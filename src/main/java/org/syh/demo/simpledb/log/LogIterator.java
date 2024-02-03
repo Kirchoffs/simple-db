@@ -43,8 +43,9 @@ public class LogIterator implements Iterator<byte[]> {
             moveToBlock(blockId);
         }
 
-        byte[] record = page.getBytes(currentPosition);
-        currentPosition += Integer.BYTES + record.length;
+        byte[] record = page.getBytes(currentPosition);   // It will read the length of the logRecord first, then the logRecord
+                                                          // The return value is just the logRecord without the length
+        currentPosition += Integer.BYTES + record.length; // We need to add Integer.BYTES to skip the length
         return record;
     }
 }
