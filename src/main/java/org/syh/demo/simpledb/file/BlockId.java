@@ -22,8 +22,8 @@ public class BlockId {
             return false;
         }
 
-        BlockId blk = (BlockId) obj;
-        return filename.equals(blk.filename) && blockNum == blk.blockNum;
+        BlockId blockId = (BlockId) obj;
+        return filename.equals(blockId.filename) && blockNum == blockId.blockNum;
     }
 
     public String toString() {

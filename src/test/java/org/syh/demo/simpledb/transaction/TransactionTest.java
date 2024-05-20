@@ -1,4 +1,4 @@
-package org.syh.demo.simplesb.transaction;
+package org.syh.demo.simpledb.transaction;
 
 import org.junit.After;
 import org.junit.Before;
@@ -7,7 +7,6 @@ import org.syh.demo.simpledb.buffer.BufferManager;
 import org.syh.demo.simpledb.file.BlockId;
 import org.syh.demo.simpledb.file.FileManager;
 import org.syh.demo.simpledb.log.LogManager;
-import org.syh.demo.simpledb.transaction.Transaction;
 
 import java.io.File;
 
@@ -51,7 +50,7 @@ public class TransactionTest {
     }
 
     @Test
-    public void concurrencyTest() {
+    public void transactionTest() {
         Thread threadA = new Thread(new ThreadA());
         Thread threadB = new Thread(new ThreadB());
         Thread threadC = new Thread(new ThreadC());

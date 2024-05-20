@@ -1,12 +1,9 @@
-package org.syh.demo.simplesb.file;
+package org.syh.demo.simpledb.file;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.syh.demo.simpledb.file.BlockId;
-import org.syh.demo.simpledb.file.FileManager;
-import org.syh.demo.simpledb.file.Page;
 
 import java.io.File;
 

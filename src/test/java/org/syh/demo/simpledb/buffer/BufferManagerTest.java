@@ -1,11 +1,9 @@
-package org.syh.demo.simplesb.buffer;
+package org.syh.demo.simpledb.buffer;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.syh.demo.simpledb.buffer.Buffer;
-import org.syh.demo.simpledb.buffer.BufferManager;
 import org.syh.demo.simpledb.buffer.exceptions.BufferAbortException;
 import org.syh.demo.simpledb.file.BlockId;
 import org.syh.demo.simpledb.file.FileManager;

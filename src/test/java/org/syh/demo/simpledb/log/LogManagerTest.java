@@ -1,11 +1,10 @@
-package org.syh.demo.simplesb.log;
+package org.syh.demo.simpledb.log;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.syh.demo.simpledb.file.FileManager;
 import org.syh.demo.simpledb.file.Page;
-import org.syh.demo.simpledb.log.LogManager;
 
 import java.io.File;
 import java.util.Iterator;
