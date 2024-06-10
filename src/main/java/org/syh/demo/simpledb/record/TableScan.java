@@ -14,7 +14,7 @@ public class TableScan {
     public TableScan(Transaction tx, String tableName, Layout layout) {
         this.tx = tx;
         this.layout = layout;
-        this.fileName = tableName;
+        this.fileName = tableName + ".tbl";
 
         if (tx.size(fileName) == 0) {
             moveToNewBlock();

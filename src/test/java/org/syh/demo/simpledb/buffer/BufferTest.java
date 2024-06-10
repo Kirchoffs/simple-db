@@ -11,7 +11,7 @@ import org.syh.demo.simpledb.log.LogManager;
 import java.io.File;
 
 public class BufferTest {
-    private static String DIR_PATH = "src/test/resources/buffer-manager-test/";
+    private static String DIR_PATH = "src/test/resources/buffer-test/";
     private static String DATA_FILE_NAME = "test-data-file";
     private static String LOG_FILE_NAME = "test-log-file";
     private static int BLOCK_SIZE = 1024;
@@ -51,7 +51,7 @@ public class BufferTest {
         Buffer buffer4 = bufferManager.pin(new BlockId(DATA_FILE_NAME, 4));
 
         bufferManager.unpin(buffer2);
-        buffer2 = bufferManager.pin(new BlockId("DATA_FILE_NAME", 1));
+        buffer2 = bufferManager.pin(new BlockId(DATA_FILE_NAME, 1));
         Page page2 = buffer2.getContents();
         page2.setInt(80, 9999);
         buffer2.setModified(1, 0);

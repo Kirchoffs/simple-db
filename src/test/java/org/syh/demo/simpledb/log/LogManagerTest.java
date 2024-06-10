@@ -10,7 +10,7 @@ import java.io.File;
 import java.util.Iterator;
 
 public class LogManagerTest {
-    private static String DIR_PATH = "src/test/resources/log-manager-test/";
+    private static String DIR_PATH = "src/test/resources/log-test/";
     private static String LOG_FILE_NAME = "test-log-file";
     private static int BLOCK_SIZE = 256;
 
@@ -28,7 +28,7 @@ public class LogManagerTest {
     }
 
     @Test
-    public void LogManagerTest() {
+    public void logManagerTest() {
         FileManager fileManager = new FileManager(directory, BLOCK_SIZE);
         LogManager logManager = new LogManager(fileManager, LOG_FILE_NAME);
 

@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.io.File;
 
 public class FileManagerTest {
-    private static String DIR_PATH = "src/test/resources/file-manager-test/";
+    private static String DIR_PATH = "src/test/resources/file-test/";
     private static String DATA_FILE_NAME = "test-data-file";
     private static int BLOCK_SIZE = 1024;
     private static int PAGE_SIZE = 1024;

@@ -12,7 +12,7 @@ import org.syh.demo.simpledb.log.LogManager;
 import java.io.File;
 
 public class BufferManagerTest {
-    private static String DIR_PATH = "src/test/resources/file-manager-test/";
+    private static String DIR_PATH = "src/test/resources/buffer-test/";
     private static String DATA_FILE_NAME = "test-data-file";
     private static String LOG_FILE_NAME = "test-log-file";
     private static int BLOCK_SIZE = 1024;

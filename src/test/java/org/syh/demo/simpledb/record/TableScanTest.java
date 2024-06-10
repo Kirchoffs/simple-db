@@ -14,7 +14,8 @@ import java.io.File;
 
 public class TableScanTest {
     private static String DIR_PATH = "src/test/resources/record-test/";
-    private static String DATA_FILE_NAME = "test-data-file";
+    private static String TABLE_NAME = "test-data-file";
+    private static String DATA_FILE_NAME = TABLE_NAME + ".tbl";
     private static String LOG_FILE_NAME = "test-log-file";
     private static int BLOCK_SIZE = 1024;
 
@@ -52,7 +53,7 @@ public class TableScanTest {
 
         BlockId blockId = tx.append(DATA_FILE_NAME);
         tx.pin(blockId);
-        TableScan ts = new TableScan(tx, DATA_FILE_NAME, layout);
+        TableScan ts = new TableScan(tx, TABLE_NAME, layout);
 
         int N = 50;
         System.out.printf("Filling the table with %d random records...\n", N);
