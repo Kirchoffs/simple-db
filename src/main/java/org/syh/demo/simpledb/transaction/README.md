@@ -16,7 +16,15 @@ SETINT <transaction_num> <file_name> <block_num> <offset> <old_value> <new_value
 - Flush the update to disk
 - Flush the update log record to disk
 - Flush the commit log record to disk
-The order of these operations is important. Based on different recovery algorithms, the order may vary.
+
+The order of these operations is important. Based on different recovery algorithms, the order may vary. 
+But flush the update log record to disk before the update is a common rule.
+
+
+Besides, there are three more operations:
+- Write the update to the data buffer
+- Write the update log record to the log buffer
+- Write the commit log record to the log buffer
 
 ### Undo-Redo Algorithm
 Stage 1: read backward from the end and undo all the transactions that did not commit.  
@@ -24,6 +32,10 @@ Stage 2: read forward from the beginning and redo all the transactions that did 
 
 - Undo is for uncompleted transactions in which some log records are not committed.
 - Redo is for the completed transactions that do not have their modifications written to disk.
+
+The flush-to-disk order is:
+1. Flush the update log record to disk.
+2. The order of the next two steps (flush the update to disk and flush the commit log record to disk) is not important.
 
 Side notes:   
 - __committed (transaction completed) != data written to disk__  
@@ -53,15 +65,16 @@ Stage 1 can be omitted if uncommitted buffers are never written to disk.
 The recovery manager can ensure this property by having each transaction keep its buffers pinned until the transaction completes.
 
 The flush-to-disk order is:
-1. Flush the update log to disk.
-2. Flush the commit log to disk.
+1. Flush the update log record to disk.
+2. Flush the commit log record to disk.
 3. Flush the update to disk.
 
 ### Quiescent Checkpointing
 1. Stop accepting new transactions.
 2. Wait for existing transactions to finish.
 3. Flush all modified buffers.
-4. Append a quiescent checkpoint record <CHECKPOINT> to the log and flush it to disk. 5. Start accepting new transactions.
+4. Append a quiescent checkpoint record <CHECKPOINT> to the log and flush it to disk. 
+5. Start accepting new transactions.
 
 A good time to write a quiescent checkpoint record is during system startup, after recovery has completed and before new transactions have begun. 
 Since the recovery algorithm has just finished processing the log, the checkpoint record ensures that it will never need to examine those log records again.

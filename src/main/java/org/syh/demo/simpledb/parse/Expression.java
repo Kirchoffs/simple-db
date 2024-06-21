@@ -1,5 +1,6 @@
-package org.syh.demo.simpledb.query;
+package org.syh.demo.simpledb.parse;
 
+import org.syh.demo.simpledb.query.Scan;
 import org.syh.demo.simpledb.record.Schema;
 
 public class Expression {

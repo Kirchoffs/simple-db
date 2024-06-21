@@ -1,11 +1,10 @@
 package org.syh.demo.simpledb.metadata;
 
 import org.syh.demo.simpledb.index.Index;
+import org.syh.demo.simpledb.record.FieldType;
 import org.syh.demo.simpledb.record.Layout;
 import org.syh.demo.simpledb.record.Schema;
 import org.syh.demo.simpledb.transaction.Transaction;
-
-import static java.sql.Types.INTEGER;
 
 public class IndexInfo {
     private String indexName;
@@ -38,7 +37,7 @@ public class IndexInfo {
         Schema schema = new Schema();
         schema.addIntField("blockNum");
         schema.addIntField("slot");
-        if (tableSchema.type(fieldName) == INTEGER) {
+        if (tableSchema.type(fieldName) == FieldType.INTEGER) {
             schema.addIntField("value");
         } else {
             schema.addStringField("value", tableSchema.length(fieldName));

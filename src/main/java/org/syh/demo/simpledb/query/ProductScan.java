@@ -1,5 +1,7 @@
 package org.syh.demo.simpledb.query;
 
+import org.syh.demo.simpledb.parse.Constant;
+
 public class ProductScan implements Scan {
     private Scan scanLeft, scanRight;
 

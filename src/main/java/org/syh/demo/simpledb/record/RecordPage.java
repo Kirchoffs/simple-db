@@ -49,7 +49,7 @@ public class RecordPage {
             Schema schema = layout.getSchema();
             for (String field : schema.fields()) {
                 int position = offset(slot) + layout.getOffset(field);
-                if (schema.type(field) == java.sql.Types.INTEGER) {
+                if (schema.type(field) == FieldType.INTEGER) {
                     tx.setInt(blockId, position, 0, false);
                 } else {
                     tx.setString(blockId, position, "", false);

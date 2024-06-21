@@ -1,6 +1,8 @@
 package org.syh.demo.simpledb.query;
 
-import org.syh.demo.simpledb.record.RID;
+import org.syh.demo.simpledb.parse.Constant;
+import org.syh.demo.simpledb.parse.Predicate;
+import org.syh.demo.simpledb.record.Rid;
 
 public class SelectScan implements UpdateScan {
     private Scan scan;
@@ -82,13 +84,13 @@ public class SelectScan implements UpdateScan {
     }
 
     @Override
-    public RID getRid() {
+    public Rid getRid() {
         UpdateScan updateScan = (UpdateScan) scan;
         return updateScan.getRid();
     }
 
     @Override
-    public void moveToRid(RID rid) {
+    public void moveToRid(Rid rid) {
         UpdateScan updateScan = (UpdateScan) scan;
         updateScan.moveToRid(rid);
     }

@@ -1,6 +1,7 @@
 package org.syh.demo.simpledb.query;
 
-import org.syh.demo.simpledb.record.RID;
+import org.syh.demo.simpledb.parse.Constant;
+import org.syh.demo.simpledb.record.Rid;
 
 public interface UpdateScan extends Scan {
     void setVal(String fieldName, Constant val);
@@ -8,6 +9,6 @@ public interface UpdateScan extends Scan {
     void setString(String fieldName, String val);
     void insert();
     void delete();
-    RID getRid();
-    void moveToRid(RID rid);
+    Rid getRid();
+    void moveToRid(Rid rid);
 }

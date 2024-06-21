@@ -1,7 +1,7 @@
 package org.syh.demo.simpledb.record;
 
 import org.syh.demo.simpledb.file.BlockId;
-import org.syh.demo.simpledb.query.Constant;
+import org.syh.demo.simpledb.parse.Constant;
 import org.syh.demo.simpledb.transaction.Transaction;
 
 public class TableScan {
@@ -73,7 +73,7 @@ public class TableScan {
     }
 
     public Constant getVal(String fieldName) {
-        if (layout.getSchema().type(fieldName) == java.sql.Types.INTEGER) {
+        if (layout.getSchema().type(fieldName) == FieldType.INTEGER) {
             return new Constant(getInt(fieldName));
         } else {
             return new Constant(getString(fieldName));
@@ -93,7 +93,7 @@ public class TableScan {
     }
 
     public void setVal(String fieldName, Constant value) {
-        if (layout.getSchema().type(fieldName) == java.sql.Types.INTEGER) {
+        if (layout.getSchema().type(fieldName) == FieldType.INTEGER) {
             setInt(fieldName, value.asInt());
         } else {
             setString(fieldName, value.asString());
@@ -116,14 +116,14 @@ public class TableScan {
         recordPage.delete(currentSlot);
     }
 
-    public void moveToRid(RID rid) {
+    public void moveToRid(Rid rid) {
         close();
         BlockId blockId = new BlockId(fileName, rid.getBlockNum());
         recordPage = new RecordPage(tx, blockId, layout);
         currentSlot = rid.getSlot();
     }
 
-    public RID getRid() {
-        return new RID(recordPage.getBlockId().getBlockNum(), currentSlot);
+    public Rid getRid() {
+        return new Rid(recordPage.getBlockId().getBlockNum(), currentSlot);
     }
 }

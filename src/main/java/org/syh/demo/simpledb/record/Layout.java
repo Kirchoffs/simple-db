@@ -1,8 +1,6 @@
 package org.syh.demo.simpledb.record;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Layout {
@@ -40,9 +38,9 @@ public class Layout {
     }
 
     private int lengthInBytes(String field) {
-        int type = schema.type(field);
+        FieldType type = schema.type(field);
         int length = schema.length(field);
-        if (type == java.sql.Types.INTEGER) {
+        if (type == FieldType.INTEGER) {
             return Integer.BYTES;
         } else {
             return length;

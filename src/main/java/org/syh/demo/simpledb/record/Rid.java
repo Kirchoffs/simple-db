@@ -3,11 +3,11 @@ package org.syh.demo.simpledb.record;
 /**
  * RID: Record Identifier
  */
-public class RID {
+public class Rid {
     private int blockNum;
     private int slot;
 
-    public RID(int blockNum, int slot) {
+    public Rid(int blockNum, int slot) {
         this.blockNum = blockNum;
         this.slot = slot;
     }
@@ -21,7 +21,7 @@ public class RID {
     }
 
     public boolean equals(Object obj) {
-        RID rid = (RID) obj;
+        Rid rid = (Rid) obj;
         return blockNum == rid.blockNum && slot == rid.slot;
     }
 

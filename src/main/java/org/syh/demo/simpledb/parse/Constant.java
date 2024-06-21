@@ -1,4 +1,4 @@
-package org.syh.demo.simpledb.query;
+package org.syh.demo.simpledb.parse;
 
 public class Constant implements Comparable<Constant> {
     private Integer ival = null;
@@ -34,6 +34,6 @@ public class Constant implements Comparable<Constant> {
     }
 
     public String toString() {
-        return (ival != null) ? ival.toString() : sval.toString();
+        return (ival != null) ? ival.toString() : "'" + sval.toString() + "'";
     }
 }

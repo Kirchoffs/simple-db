@@ -83,7 +83,7 @@ public class FileManager {
     public int length(String filename) {
         try {
             RandomAccessFile f = getFile(filename);
-            return (int) (f.length() / blockSize);
+            return (int)(f.length() / blockSize);
         }
         catch (IOException e) {
             throw new RuntimeException("cannot access " + filename);

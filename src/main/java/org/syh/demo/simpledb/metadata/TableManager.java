@@ -1,5 +1,7 @@
 package org.syh.demo.simpledb.metadata;
 
+import org.syh.demo.simpledb.metadata.exceptions.MetaDataCorruptedException;
+import org.syh.demo.simpledb.record.FieldType;
 import org.syh.demo.simpledb.record.Layout;
 import org.syh.demo.simpledb.record.Schema;
 import org.syh.demo.simpledb.record.TableScan;
@@ -48,7 +50,7 @@ public class TableManager {
             fieldCatalogTS.insert();
             fieldCatalogTS.setString("tableName", tableName);
             fieldCatalogTS.setString("fieldName", fieldName);
-            fieldCatalogTS.setInt("type", schema.type(fieldName));
+            fieldCatalogTS.setInt("type", schema.type(fieldName).getValue());
             fieldCatalogTS.setInt("length", schema.length(fieldName));
             fieldCatalogTS.setInt("offset", layout.getOffset(fieldName));
         }
@@ -72,7 +74,10 @@ public class TableManager {
         while (fieldCatalogTs.next()) {
             if (fieldCatalogTs.getString("tableName").equals(tableName)) {
                 String fieldName = fieldCatalogTs.getString("fieldName");
-                int type = fieldCatalogTs.getInt("type");
+                FieldType type = FieldType.fromValue(fieldCatalogTs.getInt("type"));
+                if (type == null) {
+                    throw new MetaDataCorruptedException();
+                }
                 int length = fieldCatalogTs.getInt("length");
                 int offset = fieldCatalogTs.getInt("offset");
                 schema.addField(fieldName, type, length);
