@@ -1,5 +1,6 @@
 package org.syh.demo.simpledb.parse;
 
+import org.syh.demo.simpledb.plan.Plan;
 import org.syh.demo.simpledb.query.Scan;
 import org.syh.demo.simpledb.record.Schema;
 
@@ -16,6 +17,27 @@ public class Term {
         Constant lhsVal = lhs.evaluate(scan);
         Constant rhsVal = rhs.evaluate(scan);
         return lhsVal.equals(rhsVal);
+    }
+
+    public int reductionFactor(Plan plan) {
+        String lhsName, rhsName;
+        if (lhs.isFieldName() && rhs.isFieldName()) {
+            lhsName = lhs.asFieldName();
+            rhsName = rhs.asFieldName();
+            return Math.max(plan.distinctValues(lhsName), plan.distinctValues(rhsName));
+        } else if (lhs.isFieldName()) {
+            lhsName = lhs.asFieldName();
+            return plan.distinctValues(lhsName);
+        } else if (rhs.isFieldName()) {
+            rhsName = rhs.asFieldName();
+            return plan.distinctValues(rhsName);
+        }
+
+        if (lhs.asConstant().equals(rhs.asConstant())) {
+            return 1;
+        } else {
+            return Integer.MAX_VALUE;
+        }
     }
 
     public Constant equatesWithConstant(String fieldName) {

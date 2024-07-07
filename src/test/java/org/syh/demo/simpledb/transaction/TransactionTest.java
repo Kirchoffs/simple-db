@@ -74,7 +74,7 @@ public class TransactionTest {
                 Transaction txA = new Transaction(fileManager, logManager, bufferManager);
                 BlockId blockId1 = new BlockId("test-file", 1);
                 BlockId blockId2 = new BlockId("test-file", 2);
-                txA.pin(blockId1);
+                txA.pin(blockId1); // It depends on the buffer memory pool size, and it will not be affected by slock or xlock.
                 txA.pin(blockId2);
                 System.out.println("Tx A: request sLock 1");
                 txA.getInt(blockId1, 0);

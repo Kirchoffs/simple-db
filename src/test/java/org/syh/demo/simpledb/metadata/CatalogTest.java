@@ -6,7 +6,7 @@ import org.syh.demo.simpledb.file.FileManager;
 import org.syh.demo.simpledb.log.LogManager;
 import org.syh.demo.simpledb.record.Layout;
 import org.syh.demo.simpledb.record.Schema;
-import org.syh.demo.simpledb.record.TableScan;
+import org.syh.demo.simpledb.query.TableScan;
 import org.syh.demo.simpledb.transaction.Transaction;
 
 import java.io.File;
@@ -54,6 +54,8 @@ public class CatalogTest {
             int offset = fieldCatalogTs.getInt("offset");
             System.out.println(tableName + " " + fieldName + " " + offset);
         }
+
+        tx.commit();
 
         File[] files = directory.listFiles();
         if (files != null) {

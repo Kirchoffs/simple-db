@@ -1,4 +1,4 @@
-package org.syh.demo.simpledb.parse;
+package org.syh.demo.simpledb.parse.data;
 
 public class CreateIndexData {
     private String indexName;

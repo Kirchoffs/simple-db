@@ -2,6 +2,13 @@ package org.syh.demo.simpledb.parse;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.syh.demo.simpledb.parse.data.CreateIndexData;
+import org.syh.demo.simpledb.parse.data.CreateTableData;
+import org.syh.demo.simpledb.parse.data.CreateViewData;
+import org.syh.demo.simpledb.parse.data.DeleteData;
+import org.syh.demo.simpledb.parse.data.InsertData;
+import org.syh.demo.simpledb.parse.data.QueryData;
+import org.syh.demo.simpledb.parse.data.UpdateData;
 
 public class ParserTest {
     @Test

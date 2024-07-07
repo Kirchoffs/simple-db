@@ -1,10 +1,14 @@
-package org.syh.demo.simpledb.record;
+package org.syh.demo.simpledb.query;
 
 import org.syh.demo.simpledb.file.BlockId;
 import org.syh.demo.simpledb.parse.Constant;
+import org.syh.demo.simpledb.record.FieldType;
+import org.syh.demo.simpledb.record.Layout;
+import org.syh.demo.simpledb.record.RecordPage;
+import org.syh.demo.simpledb.record.Rid;
 import org.syh.demo.simpledb.transaction.Transaction;
 
-public class TableScan {
+public class TableScan implements UpdateScan {
     private Transaction tx;
     private Layout layout;
     private RecordPage recordPage;

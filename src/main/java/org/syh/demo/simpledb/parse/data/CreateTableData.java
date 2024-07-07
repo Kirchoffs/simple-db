@@ -1,4 +1,4 @@
-package org.syh.demo.simpledb.parse;
+package org.syh.demo.simpledb.parse.data;
 
 import org.syh.demo.simpledb.record.FieldType;
 import org.syh.demo.simpledb.record.Schema;

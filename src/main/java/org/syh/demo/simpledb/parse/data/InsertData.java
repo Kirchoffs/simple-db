@@ -1,16 +1,25 @@
-package org.syh.demo.simpledb.parse;
+package org.syh.demo.simpledb.parse.data;
 
+import org.syh.demo.simpledb.parse.Constant;
+import org.syh.demo.simpledb.utils.Pair;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class InsertData {
     private String tableName;
     private List<String> fields;
     private List<Constant> values;
+    private List<Pair<String, Constant>> fieldValues;
 
     public InsertData(String tableName, List<String> fields, List<Constant> values) {
         this.tableName = tableName;
         this.fields = fields;
         this.values = values;
+        this.fieldValues = new ArrayList<>();
+        for (int i = 0; i < fields.size(); i++) {
+            fieldValues.add(new Pair<>(fields.get(i), values.get(i)));
+        }
     }
 
     public String getTableName() {
@@ -23,6 +32,10 @@ public class InsertData {
 
     public List<Constant> getValues() {
         return values;
+    }
+
+    public List<Pair<String, Constant>> getFieldValues() {
+        return fieldValues;
     }
 
     @Override

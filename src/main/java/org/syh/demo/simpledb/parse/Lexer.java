@@ -21,7 +21,7 @@ public class Lexer {
     }
 
     public boolean matchDelimiter(char ch) {
-        return ch == (char)tokenizer.ttype;
+        return ch == (char) tokenizer.ttype;
     }
 
     public boolean matchIntConstant() {
@@ -29,7 +29,7 @@ public class Lexer {
     }
 
     public boolean matchStringConstant() {
-        return '\'' == (char)tokenizer.ttype;
+        return '\'' == (char) tokenizer.ttype;
     }
 
     public boolean matchKeyword(String word) {
@@ -52,7 +52,7 @@ public class Lexer {
         if (!matchIntConstant()) {
             throw new BadSyntaxException();
         }
-        int i = (int)tokenizer.nval;
+        int i = (int) tokenizer.nval;
         nextToken();
         return i;
     }

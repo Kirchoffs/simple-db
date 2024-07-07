@@ -26,7 +26,7 @@ public class TokenizerTest {
         }
     }
 
-    private void printCurrentToken(StreamTokenizer tokenizer, List<String> keywords) throws Exception {
+    private void printCurrentToken(StreamTokenizer tokenizer, List<String> keywords) {
         if (tokenizer.ttype == StreamTokenizer.TT_NUMBER) {
             System.out.println("IntConstant " + (int) tokenizer.nval);
         } else if (tokenizer.ttype == StreamTokenizer.TT_WORD) {

@@ -2,8 +2,6 @@ package org.syh.demo.simpledb.parse;
 
 import org.junit.Test;
 
-import java.io.StreamTokenizer;
-
 public class LexerTest {
     @Test
     public void testLexer() throws Exception {

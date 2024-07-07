@@ -74,7 +74,7 @@ public class RecordPageTest {
         int count = 0;
         slot = recordPage.insertAfter(-1);
         while (slot != -1) {
-            int num = (int)Math.round(Math.random() * 50);
+            int num = (int) Math.round(Math.random() * 50);
             recordPage.setInt(slot, "X", num);
             recordPage.setString(slot, "Y", "Record-" + num);
             Assert.assertEquals(num, recordPage.getInt(slot, "X"));

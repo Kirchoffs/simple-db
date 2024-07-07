@@ -54,7 +54,7 @@ The flush-to-disk order is:
 
 The log is also a bit smaller, because update records no longer need to contain the new modified value.
 
-The original __SimpleDB recovery manager__ uses __undo-only__ algorithm, and the log record format is:
+Note: The original __SimpleDB recovery manager__ uses __undo-only__ algorithm, and the log record format is:
 ```
 SETINT <transaction_num> <file_name> <block_num> <offset> <old_value>
 ```

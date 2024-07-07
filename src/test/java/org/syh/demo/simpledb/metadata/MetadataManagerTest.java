@@ -8,13 +8,11 @@ import org.syh.demo.simpledb.log.LogManager;
 import org.syh.demo.simpledb.record.FieldType;
 import org.syh.demo.simpledb.record.Layout;
 import org.syh.demo.simpledb.record.Schema;
-import org.syh.demo.simpledb.record.TableScan;
+import org.syh.demo.simpledb.query.TableScan;
 import org.syh.demo.simpledb.transaction.Transaction;
 
 import java.io.File;
 import java.util.Map;
-
-
 
 public class MetadataManagerTest {
     private static String DIR_PATH = "src/test/resources/metadata-manager-test/";
@@ -90,6 +88,8 @@ public class MetadataManagerTest {
 
         IndexInfo priceIndexInfo = indexInfoMap.get("price");
         System.out.println("B(indexVehiclePrice) = " + priceIndexInfo.blockAccessed());
+
+        tx.commit();
 
         File[] files = directory.listFiles();
         if (files != null) {

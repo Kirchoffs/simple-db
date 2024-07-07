@@ -1,4 +1,7 @@
-package org.syh.demo.simpledb.parse;
+package org.syh.demo.simpledb.parse.data;
+
+import org.syh.demo.simpledb.parse.Expression;
+import org.syh.demo.simpledb.parse.Predicate;
 
 public class UpdateData {
     private String tableName;
@@ -17,11 +20,11 @@ public class UpdateData {
         return tableName;
     }
 
-    public String getFields() {
+    public String getField() {
         return field;
     }
 
-    public Expression getValues() {
+    public Expression getValue() {
         return value;
     }
 

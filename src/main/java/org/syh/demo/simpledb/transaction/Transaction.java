@@ -29,7 +29,7 @@ public class Transaction {
         this.fileManager = fileManager;
         this.bufferManager = bufferManager;
         txNum = nextTxNumber();
-        recoveryManager = new RecoveryManager(this, txNum, logManager, bufferManager);
+        recoveryManager = new RecoveryManager(this, txNum, logManager, bufferManager); // Start a new transaction
         concurrencyManager = new ConcurrencyManager();
         pinnedBuffers = new BufferList(bufferManager);
     }

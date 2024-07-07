@@ -3,7 +3,8 @@ package org.syh.demo.simpledb.query;
 import org.syh.demo.simpledb.parse.Constant;
 
 public class ProductScan implements Scan {
-    private Scan scanLeft, scanRight;
+    private Scan scanLeft;
+    private Scan scanRight;
 
     public ProductScan(Scan scanLeft, Scan scanRight) {
         this.scanLeft = scanLeft;

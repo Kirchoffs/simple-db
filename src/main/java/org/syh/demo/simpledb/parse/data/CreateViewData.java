@@ -1,4 +1,4 @@
-package org.syh.demo.simpledb.parse;
+package org.syh.demo.simpledb.parse.data;
 
 public class CreateViewData {
     private String viewName;
@@ -13,7 +13,7 @@ public class CreateViewData {
         return viewName;
     }
 
-    public String getQueryData() {
+    public String getViewDef() {
         return queryData.toString();
     }
 

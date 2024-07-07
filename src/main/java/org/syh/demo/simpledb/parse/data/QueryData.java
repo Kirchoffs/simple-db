@@ -1,4 +1,6 @@
-package org.syh.demo.simpledb.parse;
+package org.syh.demo.simpledb.parse.data;
+
+import org.syh.demo.simpledb.parse.Predicate;
 
 import java.util.Collection;
 import java.util.List;

@@ -18,7 +18,7 @@ public class FileManager {
     public FileManager(File dbDirectory, int blockSize) {
         this.dbDirectory = dbDirectory;
         this.blockSize = blockSize;
-        isNew = !dbDirectory.exists();
+        isNew = checkIsNew(dbDirectory);
 
         numBlocksRead = BigInteger.ZERO;
         numBlocksWritten = BigInteger.ZERO;
@@ -32,6 +32,14 @@ public class FileManager {
                 new File(dbDirectory, filename).delete();
             }
         }
+    }
+
+    private boolean checkIsNew(File dbDirectory) {
+        String[] files = dbDirectory.list();
+        if (!dbDirectory.exists() || files == null) {
+            return true;
+        }
+        return files.length == 0 || (files.length == 1 && ".gitkeep".equals(files[0]));
     }
 
     /**
@@ -83,7 +91,7 @@ public class FileManager {
     public int length(String filename) {
         try {
             RandomAccessFile f = getFile(filename);
-            return (int)(f.length() / blockSize);
+            return (int) (f.length() / blockSize);
         }
         catch (IOException e) {
             throw new RuntimeException("cannot access " + filename);
@@ -104,6 +112,10 @@ public class FileManager {
 
     public int getBlockSize() {
         return blockSize;
+    }
+
+    public boolean isNew() {
+        return isNew;
     }
 
     public void getStatistics() {

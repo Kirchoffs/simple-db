@@ -2,7 +2,7 @@ package org.syh.demo.simpledb.metadata;
 
 import org.syh.demo.simpledb.record.Layout;
 import org.syh.demo.simpledb.record.Schema;
-import org.syh.demo.simpledb.record.TableScan;
+import org.syh.demo.simpledb.query.TableScan;
 import org.syh.demo.simpledb.transaction.Transaction;
 
 public class ViewManager {

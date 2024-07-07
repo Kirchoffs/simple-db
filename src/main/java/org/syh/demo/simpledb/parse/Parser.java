@@ -1,5 +1,12 @@
 package org.syh.demo.simpledb.parse;
 
+import org.syh.demo.simpledb.parse.data.CreateIndexData;
+import org.syh.demo.simpledb.parse.data.CreateTableData;
+import org.syh.demo.simpledb.parse.data.CreateViewData;
+import org.syh.demo.simpledb.parse.data.DeleteData;
+import org.syh.demo.simpledb.parse.data.InsertData;
+import org.syh.demo.simpledb.parse.data.QueryData;
+import org.syh.demo.simpledb.parse.data.UpdateData;
 import org.syh.demo.simpledb.record.Schema;
 
 import java.util.ArrayList;
@@ -105,7 +112,7 @@ public class Parser {
         String table = field();
 
         lexer.eatDelimiter('(');
-        Schema schema = fieldDefinitions();
+        Schema schema = fieldDefs();
         lexer.eatDelimiter(')');
 
         return new CreateTableData(table, schema);
@@ -164,16 +171,16 @@ public class Parser {
         return constants;
     }
 
-    private Schema fieldDefinitions() {
-        Schema schema = fieldDefinition();
+    private Schema fieldDefs() {
+        Schema schema = fieldDef();
         while (lexer.matchDelimiter(',')) {
             lexer.eatDelimiter(',');
-            schema.addAll(fieldDefinition());
+            schema.addAll(fieldDef());
         }
         return schema;
     }
 
-    private Schema fieldDefinition() {
+    private Schema fieldDef() {
         String field = field();
         return fieldWithType(field);
     }

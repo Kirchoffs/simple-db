@@ -8,6 +8,7 @@ import org.syh.demo.simpledb.buffer.BufferManager;
 import org.syh.demo.simpledb.file.BlockId;
 import org.syh.demo.simpledb.file.FileManager;
 import org.syh.demo.simpledb.log.LogManager;
+import org.syh.demo.simpledb.query.TableScan;
 import org.syh.demo.simpledb.transaction.Transaction;
 
 import java.io.File;
@@ -59,7 +60,7 @@ public class TableScanTest {
         System.out.printf("Filling the table with %d random records...\n", N);
         for (int i = 0; i < N; i++) {
             ts.insert();
-            int num = (int)Math.round(Math.random() * N);
+            int num = (int) Math.round(Math.random() * N);
             ts.setInt("A", num);
             ts.setString("B", "Record-" + num);
             System.out.printf("Inserting into %d-th slot %s: {%d, Record-%d}\n", i, ts.getRid(), num, num);
