@@ -14,19 +14,23 @@ public class SelectPlan implements Plan {
         this.predicate = predicate;
     }
 
+    @Override
     public Scan open() {
         Scan scan = plan.open();
         return new SelectScan(scan, predicate);
     }
 
+    @Override
     public int blocksAccessed() {
         return plan.blocksAccessed();
     }
 
+    @Override
     public int recordsOutput() {
         return plan.recordsOutput() / predicate.reductionFactor(plan);
     }
 
+    @Override
     public int distinctValues(String fieldName) {
         if (predicate.equatesWithConstant(fieldName) != null) {
             return 1;
@@ -40,7 +44,8 @@ public class SelectPlan implements Plan {
         }
     }
 
-    public Schema getSchema() {
-        return plan.getSchema();
+    @Override
+    public Schema schema() {
+        return plan.schema();
     }
 }

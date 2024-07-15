@@ -14,30 +14,35 @@ public class ProjectPlan implements Plan {
         this.plan = plan;
         this.schema = new Schema();
 
-        Schema originalSchema = plan.getSchema();
+        Schema originalSchema = plan.schema();
         for (String fieldName : fieldList) {
             schema.add(fieldName, originalSchema);
         }
     }
 
+    @Override
     public Scan open() {
         Scan scan = plan.open();
         return new ProjectScan(scan, schema.fields());
     }
 
+    @Override
     public int blocksAccessed() {
         return plan.blocksAccessed();
     }
 
+    @Override
     public int recordsOutput() {
         return plan.recordsOutput();
     }
 
+    @Override
     public int distinctValues(String fieldName) {
         return plan.distinctValues(fieldName);
     }
 
-    public Schema getSchema() {
+    @Override
+    public Schema schema() {
         return schema;
     }
 }

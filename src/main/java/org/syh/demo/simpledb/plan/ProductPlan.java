@@ -13,31 +13,36 @@ public class ProductPlan implements Plan {
         this.planLeft = planLeft;
         this.planRight = planRight;
         schema = new Schema();
-        schema.addAll(planLeft.getSchema());
-        schema.addAll(planRight.getSchema());
+        schema.addAll(planLeft.schema());
+        schema.addAll(planRight.schema());
     }
 
+    @Override
     public Scan open() {
         return new ProductScan(planLeft.open(), planRight.open());
     }
 
+    @Override
     public int blocksAccessed() {
         return planLeft.blocksAccessed() + planLeft.recordsOutput() * planRight.blocksAccessed();
     }
 
+    @Override
     public int recordsOutput() {
         return planLeft.recordsOutput() * planRight.recordsOutput();
     }
 
+    @Override
     public int distinctValues(String fieldName) {
-        if (planLeft.getSchema().hasField(fieldName)) {
+        if (planLeft.schema().hasField(fieldName)) {
             return planLeft.distinctValues(fieldName);
         } else {
             return planRight.distinctValues(fieldName);
         }
     }
 
-    public Schema getSchema() {
+    @Override
+    public Schema schema() {
         return schema;
     }
 }

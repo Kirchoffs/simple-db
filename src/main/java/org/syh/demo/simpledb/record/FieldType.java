@@ -1,8 +1,8 @@
 package org.syh.demo.simpledb.record;
 
 public enum FieldType {
-    INTEGER(1),
-    VARCHAR(2);
+    INTEGER(4),
+    VARCHAR(12);
 
     private int value;
 

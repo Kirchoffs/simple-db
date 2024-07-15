@@ -21,23 +21,28 @@ public class TablePlan implements Plan {
         this.statInfo = metadataManager.getStatInfo(tableName, layout, tx);
     }
 
+    @Override
     public Scan open() {
         return new TableScan(tx, tableName, layout);
     }
 
+    @Override
     public int blocksAccessed() {
         return statInfo.blocksAccessed();
     }
 
+    @Override
     public int recordsOutput() {
         return statInfo.recordsOutput();
     }
 
+    @Override
     public int distinctValues(String fldName) {
         return statInfo.distinctValues(fldName);
     }
 
-    public Schema getSchema() {
+    @Override
+    public Schema schema() {
         return layout.getSchema();
     }
 }

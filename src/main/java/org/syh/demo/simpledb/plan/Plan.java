@@ -8,5 +8,5 @@ public interface Plan {
     int blocksAccessed();
     int recordsOutput();
     int distinctValues(String fieldName);
-    Schema getSchema();
+    Schema schema();
 }
