@@ -46,10 +46,10 @@ public class RecordPage {
         int slot = 0;
         while (isValidSlot(slot)) {
             tx.setInt(blockId, offset(slot), EMPTY, false);
-            Schema schema = layout.getSchema();
+            Schema schema = layout.schema();
             for (String field : schema.fields()) {
                 int position = offset(slot) + layout.getOffset(field);
-                if (schema.type(field) == FieldType.INTEGER) {
+                if (schema.getType(field) == FieldType.INTEGER) {
                     tx.setInt(blockId, position, 0, false);
                 } else {
                     tx.setString(blockId, position, "", false);
@@ -83,7 +83,7 @@ public class RecordPage {
     }
 
     private int offset(int slot) {
-        return slot * layout.getSlotSize();
+        return slot * layout.slotSize();
     }
 
     private void setFlag(int slot, int flag) {
@@ -99,7 +99,7 @@ public class RecordPage {
         return slot >= 0 && offset(slot + 1) <= tx.getBlockSize();
     }
 
-    public BlockId getBlockId() {
+    public BlockId blockId() {
         return blockId;
     }
 }

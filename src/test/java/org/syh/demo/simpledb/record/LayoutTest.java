@@ -10,7 +10,7 @@ public class LayoutTest {
         schema.addStringField("email", 42);
         schema.addStringField("phone", 11);
         Layout layout = new Layout(schema);
-        for (String fieldName : layout.getSchema().fields()) {
+        for (String fieldName : layout.schema().fields()) {
             int offset = layout.getOffset(fieldName);
             System.out.println(fieldName + " has offset " + offset);
         }

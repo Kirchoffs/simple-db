@@ -8,6 +8,8 @@ import java.util.Map;
 public class LockTable {
     private static final long MAX_WAIT_TIME = 10000;
 
+    // If the value is positive, it means the number of SLocks.
+    // If the value is -1, it means there is an XLock.
     private Map<BlockId, Integer> locks = new HashMap<>();
 
     public synchronized void sLock(BlockId blockId) {

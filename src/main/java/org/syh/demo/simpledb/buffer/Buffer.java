@@ -17,17 +17,17 @@ public class Buffer {
     public Buffer(FileManager fileManager, LogManager logManager) {
         this.fileManager = fileManager;
         this.logManager = logManager;
-        this.contents = new Page(fileManager.getBlockSize());
+        this.contents = new Page(fileManager.blockSize());
         this.pins = 0;
         this.txNum = -1;
         this.lsn = -1;
     }
 
-    public Page getContents() {
+    public Page contents() {
         return contents;
     }
 
-    public BlockId getBlockId() {
+    public BlockId blockId() {
         return blockId;
     }
 

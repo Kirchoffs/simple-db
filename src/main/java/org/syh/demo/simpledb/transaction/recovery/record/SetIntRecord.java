@@ -15,12 +15,12 @@ public class SetIntRecord implements LogRecord {
         int txNumPos = Integer.BYTES;
         this.txNum = page.getInt(txNumPos);
 
-        int filenamePos = txNumPos + Integer.BYTES;
-        String filename = page.getString(filenamePos);
+        int fileNamePos = txNumPos + Integer.BYTES;
+        String fileName = page.getString(fileNamePos);
 
-        int blockNumPos = filenamePos + Page.maxLength(filename.length());
+        int blockNumPos = fileNamePos + Page.maxLength(fileName.length());
         int blockNum = page.getInt(blockNumPos);
-        this.blockId = new BlockId(filename, blockNum);
+        this.blockId = new BlockId(fileName, blockNum);
 
         int offsetPos = blockNumPos + Integer.BYTES;
         this.offset = page.getInt(offsetPos);
@@ -49,8 +49,8 @@ public class SetIntRecord implements LogRecord {
 
     public static int writeToLog(LogManager logManager, int txNum, BlockId blockId, int offset, int val) {
         int txNumPos = Integer.BYTES;
-        int filenamePos = txNumPos + Integer.BYTES;
-        int blockNumPos = filenamePos + Page.maxLength(blockId.getFilename().length());
+        int fileNamePos = txNumPos + Integer.BYTES;
+        int blockNumPos = fileNamePos + Page.maxLength(blockId.fileName().length());
         int offsetPos = blockNumPos + Integer.BYTES;
         int valPos = offsetPos + Integer.BYTES;
 
@@ -58,8 +58,8 @@ public class SetIntRecord implements LogRecord {
         Page page = new Page(recordBytes);
         page.setFirstInt(SETINT);
         page.setInt(txNumPos, txNum);
-        page.setString(filenamePos, blockId.getFilename());
-        page.setInt(blockNumPos, blockId.getBlockNum());
+        page.setString(fileNamePos, blockId.fileName());
+        page.setInt(blockNumPos, blockId.blockNum());
         page.setInt(offsetPos, offset);
         page.setInt(valPos, val);
 

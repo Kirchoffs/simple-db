@@ -11,15 +11,15 @@ public class CreateIndexData {
         this.fieldName = fieldName;
     }
 
-    public String getIndexName() {
+    public String indexName() {
         return indexName;
     }
 
-    public String getTableName() {
+    public String tableName() {
         return tableName;
     }
 
-    public String getFieldName() {
+    public String fieldName() {
         return fieldName;
     }
 

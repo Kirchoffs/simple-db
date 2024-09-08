@@ -27,9 +27,9 @@ public class FileManager {
             dbDirectory.mkdirs();
         }
 
-        for (String filename : dbDirectory.list()) {
-            if (filename.startsWith("temp")) {
-                new File(dbDirectory, filename).delete();
+        for (String fileName : dbDirectory.list()) {
+            if (fileName.startsWith("temp")) {
+                new File(dbDirectory, fileName).delete();
             }
         }
     }
@@ -49,8 +49,8 @@ public class FileManager {
      */
     public synchronized void read(BlockId blockId, Page page) {
         try {
-            RandomAccessFile f = getFile(blockId.getFilename());
-            f.seek(blockId.getBlockNum() * blockSize);
+            RandomAccessFile f = getFile(blockId.fileName());
+            f.seek(blockId.blockNum() * blockSize);
             f.getChannel().read(page.contents());
             numBlocksRead = numBlocksRead.add(BigInteger.ONE);
         } catch (IOException e) {
@@ -65,8 +65,8 @@ public class FileManager {
      */
     public synchronized void write(BlockId blockId, Page page) {
         try {
-            RandomAccessFile f = getFile(blockId.getFilename());
-            f.seek(blockId.getBlockNum() * blockSize);
+            RandomAccessFile f = getFile(blockId.fileName());
+            f.seek(blockId.blockNum() * blockSize);
             f.getChannel().write(page.contents());
             numBlocksWritten = numBlocksWritten.add(BigInteger.ONE);
         } catch (IOException e) {
@@ -74,12 +74,12 @@ public class FileManager {
         }
     }
 
-    public synchronized BlockId append(String filename) {
-        int newBlockNum = length(filename);
-        BlockId blockId = new BlockId(filename, newBlockNum);
+    public synchronized BlockId append(String fileName) {
+        int newBlockNum = length(fileName);
+        BlockId blockId = new BlockId(fileName, newBlockNum);
         byte[] bytes = new byte[blockSize];
         try {
-            RandomAccessFile f = getFile(filename);
+            RandomAccessFile f = getFile(fileName);
             f.seek(newBlockNum * blockSize);
             f.write(bytes);
         } catch (IOException e) {
@@ -88,29 +88,29 @@ public class FileManager {
         return blockId;
     }
 
-    public int length(String filename) {
+    public int length(String fileName) {
         try {
-            RandomAccessFile f = getFile(filename);
+            RandomAccessFile f = getFile(fileName);
             return (int) (f.length() / blockSize);
         }
         catch (IOException e) {
-            throw new RuntimeException("cannot access " + filename);
+            throw new RuntimeException("cannot access " + fileName);
         }
     }
 
-    private RandomAccessFile getFile(String filename) throws IOException {
-        RandomAccessFile f = openFiles.get(filename);
+    private RandomAccessFile getFile(String fileName) throws IOException {
+        RandomAccessFile f = openFiles.get(fileName);
         if (f == null) {
-            File dbFile = new File(dbDirectory, filename);
+            File dbFile = new File(dbDirectory, fileName);
             // The “s” portion specifies that the operating system should not delay disk I/O in order to optimize disk performance.
             // Instead, every write operation must be written immediately to the disk.
             f = new RandomAccessFile(dbFile, "rws");
-            openFiles.put(filename, f);
+            openFiles.put(fileName, f);
         }
         return f;
     }
 
-    public int getBlockSize() {
+    public int blockSize() {
         return blockSize;
     }
 

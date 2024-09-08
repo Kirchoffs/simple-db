@@ -17,7 +17,7 @@ public class LogIterator implements Iterator<byte[]> {
         this.fileManager = fileManager;
         this.blockId = blockId;
 
-        page = new Page(new byte[fileManager.getBlockSize()]);
+        page = new Page(new byte[fileManager.blockSize()]);
         moveToBlock(blockId);
     }
 
@@ -29,17 +29,17 @@ public class LogIterator implements Iterator<byte[]> {
 
     @Override
     public boolean hasNext() {
-        return currentPosition < fileManager.getBlockSize() || blockId.getBlockNum() > 0;
+        return currentPosition < fileManager.blockSize() || blockId.blockNum() > 0;
     }
 
     @Override
     public byte[] next() {
-        if (currentPosition == fileManager.getBlockSize()) {
-            if (blockId.getBlockNum() == 0) {
+        if (currentPosition == fileManager.blockSize()) {
+            if (blockId.blockNum() == 0) {
                 return null;
             }
 
-            blockId = new BlockId(blockId.getFilename(), blockId.getBlockNum() - 1);
+            blockId = new BlockId(blockId.fileName(), blockId.blockNum() - 1);
             moveToBlock(blockId);
         }
 

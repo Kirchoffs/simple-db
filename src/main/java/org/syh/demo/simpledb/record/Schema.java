@@ -28,7 +28,7 @@ public class Schema {
     }
 
     public void add(String fieldName, Schema schema) {
-        FieldType type = schema.type(fieldName);
+        FieldType type = schema.getType(fieldName);
         int length = schema.length(fieldName);
         addField(fieldName, type, length);
     }
@@ -47,7 +47,7 @@ public class Schema {
         return fields.contains(fieldName);
     }
 
-    public FieldType type(String fieldName) {
+    public FieldType getType(String fieldName) {
         return info.get(fieldName).type;
     }
 

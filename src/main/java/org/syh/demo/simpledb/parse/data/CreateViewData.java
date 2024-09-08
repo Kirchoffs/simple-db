@@ -9,11 +9,11 @@ public class CreateViewData {
         this.queryData = queryData;
     }
 
-    public String getViewName() {
+    public String viewName() {
         return viewName;
     }
 
-    public String getViewDef() {
+    public String viewDef() {
         return queryData.toString();
     }
 

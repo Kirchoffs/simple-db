@@ -1,6 +1,6 @@
 package org.syh.demo.simpledb.plan;
 
-import org.syh.demo.simpledb.parse.Predicate;
+import org.syh.demo.simpledb.parse.models.Predicate;
 import org.syh.demo.simpledb.query.Scan;
 import org.syh.demo.simpledb.query.SelectScan;
 import org.syh.demo.simpledb.record.Schema;

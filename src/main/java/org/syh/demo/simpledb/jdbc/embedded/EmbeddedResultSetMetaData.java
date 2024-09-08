@@ -24,13 +24,13 @@ public class EmbeddedResultSetMetaData extends ResultSetMetaDataAdapter {
     @Override
     public int getColumnType(int column) {
         String fieldName = getColumnName(column);
-        return schema.type(fieldName).getValue();
+        return schema.getType(fieldName).getValue();
     }
 
     @Override
     public int getColumnDisplaySize(int column) {
         String fieldName = getColumnName(column);
-        FieldType fieldType = schema.type(fieldName);
+        FieldType fieldType = schema.getType(fieldName);
         int fieldLength = fieldType == FieldType.INTEGER ? 6 : schema.length(fieldName);
         return Math.max(fieldLength, fieldName.length());
     }

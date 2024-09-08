@@ -42,7 +42,7 @@ public class TableManager {
         TableScan tableCatalogTS = new TableScan(tx, "tableCatalog", tableCatalogLayout);
         tableCatalogTS.insert();
         tableCatalogTS.setString("tableName", tableName);
-        tableCatalogTS.setInt("slotSize", layout.getSlotSize());
+        tableCatalogTS.setInt("slotSize", layout.slotSize());
         tableCatalogTS.close();
 
         TableScan fieldCatalogTS = new TableScan(tx, "fieldCatalog", fieldCatalogLayout);
@@ -50,7 +50,7 @@ public class TableManager {
             fieldCatalogTS.insert();
             fieldCatalogTS.setString("tableName", tableName);
             fieldCatalogTS.setString("fieldName", fieldName);
-            fieldCatalogTS.setInt("type", schema.type(fieldName).getValue());
+            fieldCatalogTS.setInt("type", schema.getType(fieldName).getValue());
             fieldCatalogTS.setInt("length", schema.length(fieldName));
             fieldCatalogTS.setInt("offset", layout.getOffset(fieldName));
         }

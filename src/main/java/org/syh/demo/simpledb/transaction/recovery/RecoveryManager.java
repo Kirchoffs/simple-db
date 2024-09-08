@@ -107,14 +107,14 @@ public class RecoveryManager {
      * Write a setInt record to the log and return its lsn.
      */
     public int setInt(Buffer buffer, int offset, int newVal) {
-        int oldVal = buffer.getContents().getInt(offset);
-        BlockId blockId = buffer.getBlockId();
+        int oldVal = buffer.contents().getInt(offset);
+        BlockId blockId = buffer.blockId();
         return SetIntRecord.writeToLog(logManager, txNum, blockId, offset, oldVal);
     }
 
     public int setString(Buffer buffer, int offset, String newVal) {
-        String oldVal = buffer.getContents().getString(offset);
-        BlockId blockId = buffer.getBlockId();
+        String oldVal = buffer.contents().getString(offset);
+        BlockId blockId = buffer.blockId();
         return SetStringRecord.writeToLog(logManager, txNum, blockId, offset, oldVal);
     }
 }

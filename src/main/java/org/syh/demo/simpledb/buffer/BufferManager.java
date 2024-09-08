@@ -52,7 +52,7 @@ public class BufferManager {
      */
     private Buffer findExistingBuffer(BlockId targetBlockId) {
         for (Buffer buffer : bufferPool) {
-            BlockId blockId = buffer.getBlockId();
+            BlockId blockId = buffer.blockId();
             if (blockId != null && blockId.equals(targetBlockId)) {
                 return buffer;
             }
@@ -99,7 +99,7 @@ public class BufferManager {
         return System.currentTimeMillis() - startTime > MAX_WAIT_TIME;
     }
 
-    public synchronized int getNumAvailable() {
+    public synchronized int numAvailable() {
         return numAvailable;
     }
 }

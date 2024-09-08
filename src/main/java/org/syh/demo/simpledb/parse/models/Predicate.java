@@ -1,4 +1,4 @@
-package org.syh.demo.simpledb.parse;
+package org.syh.demo.simpledb.parse.models;
 
 import org.syh.demo.simpledb.plan.Plan;
 import org.syh.demo.simpledb.query.Scan;

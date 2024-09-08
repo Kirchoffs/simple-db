@@ -11,7 +11,7 @@ public class Layout {
     public Layout(Schema schema) {
         this.schema = schema;
         offsets = new HashMap<>();
-        int pos = Integer.BYTES;
+        int pos = Integer.BYTES;  // leave space for the empty/inuse flag
         for (String field : schema.fields()) {
             offsets.put(field, pos);
             pos += lengthInBytes(field);
@@ -25,7 +25,7 @@ public class Layout {
         this.slotSize = slotSize;
     }
 
-    public Schema getSchema() {
+    public Schema schema() {
         return schema;
     }
 
@@ -33,12 +33,12 @@ public class Layout {
         return offsets.get(field);
     }
 
-    public int getSlotSize() {
+    public int slotSize() {
         return slotSize;
     }
 
     private int lengthInBytes(String field) {
-        FieldType type = schema.type(field);
+        FieldType type = schema.getType(field);
         int length = schema.length(field);
         if (type == FieldType.INTEGER) {
             return Integer.BYTES;

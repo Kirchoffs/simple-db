@@ -12,11 +12,11 @@ public class CreateTableData {
         this.schema = schema;
     }
 
-    public String getTableName() {
+    public String tableName() {
         return tableName;
     }
 
-    public Schema getSchema() {
+    public Schema schema() {
         return schema;
     }
 
@@ -25,7 +25,7 @@ public class CreateTableData {
         StringBuilder result = new StringBuilder("CREATE TABLE ");
         result.append(tableName).append(" (");
         for (String field : schema.fields()) {
-            FieldType type = schema.type(field);
+            FieldType type = schema.getType(field);
             result.append(field).append(" ");
             if (type == FieldType.INTEGER) {
                 result.append("INT");

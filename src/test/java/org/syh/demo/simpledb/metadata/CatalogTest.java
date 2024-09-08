@@ -12,10 +12,10 @@ import org.syh.demo.simpledb.transaction.Transaction;
 import java.io.File;
 
 public class CatalogTest {
-    private static String DIR_PATH = "src/test/resources/catalog-test/";
-    private static String LOG_FILE_NAME = "test-log-file";
-    private static int BLOCK_SIZE = 1024;
-    private static int BUFFER_POOL_SIZE = 3;
+    private static final String DIR_PATH = "src/test/resources/catalog-test/";
+    private static final String LOG_FILE_NAME = "test-log-file";
+    private static final int BLOCK_SIZE = 1024;
+    private static final int BUFFER_POOL_SIZE = 3;
 
     @Test
     public void catalogTest() {

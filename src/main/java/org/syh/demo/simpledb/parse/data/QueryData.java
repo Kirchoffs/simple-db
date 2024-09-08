@@ -1,27 +1,27 @@
 package org.syh.demo.simpledb.parse.data;
 
-import org.syh.demo.simpledb.parse.Predicate;
+import org.syh.demo.simpledb.parse.models.Predicate;
 
 import java.util.Collection;
 import java.util.List;
 
 public class QueryData {
-    private List<String> fields;
-    private Collection<String> tables;
+    private List<String> fieldNames;
+    private Collection<String> tableNames;
     private Predicate predicate;
 
-    public QueryData(List<String> fields, Collection<String> tables, Predicate predicate) {
-        this.fields = fields;
-        this.tables = tables;
+    public QueryData(List<String> fieldNames, Collection<String> tableNames, Predicate predicate) {
+        this.fieldNames = fieldNames;
+        this.tableNames = tableNames;
         this.predicate = predicate;
     }
 
-    public List<String> fields() {
-        return fields;
+    public List<String> fieldNames() {
+        return fieldNames;
     }
 
-    public Collection<String> tables() {
-        return tables;
+    public Collection<String> tableNames() {
+        return tableNames;
     }
 
     public Predicate predicate() {
@@ -30,13 +30,13 @@ public class QueryData {
 
     public String toString() {
         StringBuilder result = new StringBuilder("SELECT ");
-        for (String fieldName : fields) {
+        for (String fieldName : fieldNames) {
             result.append(fieldName).append(", ");
         }
         result.setLength(result.length() - 2);
 
         result.append(" FROM ");
-        for (String tableName : tables) {
+        for (String tableName : tableNames) {
             result.append(tableName).append(", ");
         }
         result.setLength(result.length() - 2);

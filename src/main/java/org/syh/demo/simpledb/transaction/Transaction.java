@@ -69,7 +69,11 @@ public class Transaction {
     public int getInt(BlockId blockId, int offset) {
         concurrencyManager.sLock(blockId);
         Buffer buffer = pinnedBuffers.getBuffer(blockId);
-        return buffer.getContents().getInt(offset);
+        return buffer.contents().getInt(offset);
+    }
+
+    public int getFirstInt(BlockId blockId) {
+        return getInt(blockId, 0);
     }
 
     public void setInt(BlockId blockId, int offset, int val, boolean okToLog) {
@@ -81,15 +85,19 @@ public class Transaction {
             lsn = recoveryManager.setInt(buffer, offset, val);
         }
 
-        Page page = buffer.getContents();
+        Page page = buffer.contents();
         page.setInt(offset, val);
         buffer.setModified(txNum, lsn);
+    }
+
+    public void setFirstInt(BlockId blockId, int val, boolean okToLog) {
+        setInt(blockId, 0, val, okToLog);
     }
 
     public String getString(BlockId blockId, int offset) {
         concurrencyManager.sLock(blockId);
         Buffer buffer = pinnedBuffers.getBuffer(blockId);
-        return buffer.getContents().getString(offset);
+        return buffer.contents().getString(offset);
     }
 
     public void setString(BlockId blockId, int offset, String val, boolean okToLog) {
@@ -100,29 +108,29 @@ public class Transaction {
             lsn = recoveryManager.setString(buffer, offset, val);
         }
 
-        Page page = buffer.getContents();
+        Page page = buffer.contents();
         page.setString(offset, val);
         buffer.setModified(txNum, lsn);
     }
 
-    public int size(String filename) {
-        BlockId dummyBlockId = new BlockId(filename, END_OF_FILE);
+    public int size(String fileName) {
+        BlockId dummyBlockId = new BlockId(fileName, END_OF_FILE);
         concurrencyManager.sLock(dummyBlockId);
-        return fileManager.length(filename);
+        return fileManager.length(fileName);
     }
 
-    public BlockId append(String filename) {
-        BlockId blockId = new BlockId(filename, END_OF_FILE);
+    public BlockId append(String fileName) {
+        BlockId blockId = new BlockId(fileName, END_OF_FILE);
         concurrencyManager.xLock(blockId);
-        return fileManager.append(filename);
+        return fileManager.append(fileName);
     }
 
     public int getBlockSize() {
-        return fileManager.getBlockSize();
+        return fileManager.blockSize();
     }
 
     public int getNumAvailable() {
-        return bufferManager.getNumAvailable();
+        return bufferManager.numAvailable();
     }
 
     private static synchronized int nextTxNum() {

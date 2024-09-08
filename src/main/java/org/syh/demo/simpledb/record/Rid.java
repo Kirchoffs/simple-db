@@ -12,11 +12,11 @@ public class Rid {
         this.slot = slot;
     }
 
-    public int getBlockNum() {
+    public int blockNum() {
         return blockNum;
     }
 
-    public int getSlot() {
+    public int slot() {
         return slot;
     }
 

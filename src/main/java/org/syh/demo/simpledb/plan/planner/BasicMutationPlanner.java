@@ -1,7 +1,7 @@
 package org.syh.demo.simpledb.plan.planner;
 
 import org.syh.demo.simpledb.metadata.MetadataManager;
-import org.syh.demo.simpledb.parse.Constant;
+import org.syh.demo.simpledb.parse.models.Constant;
 import org.syh.demo.simpledb.parse.data.CreateIndexData;
 import org.syh.demo.simpledb.parse.data.CreateTableData;
 import org.syh.demo.simpledb.parse.data.CreateViewData;
@@ -25,15 +25,15 @@ public class BasicMutationPlanner implements MutationPlanner {
     }
 
     public int executeInsert(InsertData data, Transaction tx) {
-        Plan plan = new TablePlan(tx, data.getTableName(), metadataManager);
+        Plan plan = new TablePlan(tx, data.tableName(), metadataManager);
 
         UpdateScan updateScan = (UpdateScan) plan.open();
         updateScan.insert();
 
-        Iterator<Pair<String, Constant>> iter = data.getFieldValues().iterator();
+        Iterator<Pair<String, Constant>> iter = data.fields().iterator();
         while (iter.hasNext()) {
-            Pair<String, Constant> pair = iter.next();
-            updateScan.setVal(pair.getFirst(), pair.getSecond());
+            Pair<String, Constant> field = iter.next();
+            updateScan.setVal(field.getFirst(), field.getSecond());
         }
 
         updateScan.close();
@@ -42,8 +42,8 @@ public class BasicMutationPlanner implements MutationPlanner {
     }
 
     public int executeDelete(DeleteData data, Transaction tx) {
-        Plan plan = new TablePlan(tx, data.getTableName(), metadataManager);
-        plan = new SelectPlan(plan, data.getPredicate());
+        Plan plan = new TablePlan(tx, data.tableName(), metadataManager);
+        plan = new SelectPlan(plan, data.predicate());
 
         UpdateScan updateScan = (UpdateScan) plan.open();
 
@@ -59,15 +59,15 @@ public class BasicMutationPlanner implements MutationPlanner {
     }
 
     public int executeUpdate(UpdateData data, Transaction tx) {
-        Plan plan = new TablePlan(tx, data.getTableName(), metadataManager);
-        plan = new SelectPlan(plan, data.getPredicate());
+        Plan plan = new TablePlan(tx, data.tableName(), metadataManager);
+        plan = new SelectPlan(plan, data.predicate());
 
         UpdateScan updateScan = (UpdateScan) plan.open();
 
         int count = 0;
         while (updateScan.next()) {
-            Constant val = data.getValue().evaluate(updateScan);
-            updateScan.setVal(data.getField(), val);
+            Constant val = data.value().evaluate(updateScan);
+            updateScan.setVal(data.fieldName(), val);
             count++;
         }
 
@@ -77,17 +77,17 @@ public class BasicMutationPlanner implements MutationPlanner {
     }
 
     public int executeCreateTable(CreateTableData data, Transaction tx) {
-        metadataManager.createTable(data.getTableName(), data.getSchema(), tx);
+        metadataManager.createTable(data.tableName(), data.schema(), tx);
         return 0;
     }
 
     public int executeCreateView(CreateViewData data, Transaction tx) {
-        metadataManager.createView(data.getViewName(), data.getViewDef(), tx);
+        metadataManager.createView(data.viewName(), data.viewDef(), tx);
         return 0;
     }
 
     public int executeCreateIndex(CreateIndexData data, Transaction tx) {
-        metadataManager.createIndex(data.getIndexName(), data.getTableName(), data.getFieldName(), tx);
+        metadataManager.createIndex(data.indexName(), data.tableName(), data.fieldName(), tx);
         return 0;
     }
 }

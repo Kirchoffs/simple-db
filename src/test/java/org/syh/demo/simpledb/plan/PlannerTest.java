@@ -18,9 +18,9 @@ import org.syh.demo.simpledb.transaction.Transaction;
 import java.io.File;
 
 public class PlannerTest {
-    private static String DIR_PATH = "src/test/resources/plan-test/";
-    private static String LOG_FILE_NAME = "test-log-file";
-    private static int BLOCK_SIZE = 8192;
+    private static final String DIR_PATH = "src/test/resources/plan-test/";
+    private static final String LOG_FILE_NAME = "test-log-file";
+    private static final int BLOCK_SIZE = 8192;
 
     private File directory;
 

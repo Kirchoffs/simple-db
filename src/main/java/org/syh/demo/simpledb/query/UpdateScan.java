@@ -1,6 +1,6 @@
 package org.syh.demo.simpledb.query;
 
-import org.syh.demo.simpledb.parse.Constant;
+import org.syh.demo.simpledb.parse.models.Constant;
 import org.syh.demo.simpledb.record.Rid;
 
 public interface UpdateScan extends Scan {

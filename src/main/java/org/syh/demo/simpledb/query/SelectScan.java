@@ -1,7 +1,7 @@
 package org.syh.demo.simpledb.query;
 
-import org.syh.demo.simpledb.parse.Constant;
-import org.syh.demo.simpledb.parse.Predicate;
+import org.syh.demo.simpledb.parse.models.Constant;
+import org.syh.demo.simpledb.parse.models.Predicate;
 import org.syh.demo.simpledb.record.Rid;
 
 public class SelectScan implements UpdateScan {

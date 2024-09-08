@@ -15,10 +15,10 @@ import java.io.File;
 import java.util.Map;
 
 public class MetadataManagerTest {
-    private static String DIR_PATH = "src/test/resources/metadata-manager-test/";
-    private static String LOG_FILE_NAME = "test-log-file";
-    private static int BLOCK_SIZE = 1024;
-    private static int BUFFER_POOL_SIZE = 3;
+    private static final String DIR_PATH = "src/test/resources/metadata-manager-test/";
+    private static final String LOG_FILE_NAME = "test-log-file";
+    private static final int BLOCK_SIZE = 1024;
+    private static final int BUFFER_POOL_SIZE = 3;
 
     private File directory = new File(DIR_PATH);
 
@@ -40,13 +40,13 @@ public class MetadataManagerTest {
 
         // Table Metadata
         Layout vehicleLayout = metadataManager.getLayout("vehicle", tx);
-        int vehicleSlotSize = vehicleLayout.getSlotSize();
-        Schema vehicleSchema = vehicleLayout.getSchema();
+        int vehicleSlotSize = vehicleLayout.slotSize();
+        Schema vehicleSchema = vehicleLayout.schema();
         System.out.println("Table vehicle has slot size " + vehicleSlotSize);
         System.out.println("Its fields are:");
         for (String fieldName : vehicleSchema.fields()) {
             String type;
-            if (vehicleSchema.type(fieldName) == FieldType.INTEGER) {
+            if (vehicleSchema.getType(fieldName) == FieldType.INTEGER) {
                 type = "int";
             } else {
                 int length = vehicleSchema.length(fieldName);
@@ -84,10 +84,10 @@ public class MetadataManagerTest {
         Map<String, IndexInfo> indexInfoMap = metadataManager.getIndexInfo("vehicle", tx);
 
         IndexInfo modelIndexInfo = indexInfoMap.get("model");
-        System.out.println("B(indexVehicleModel) = " + modelIndexInfo.blockAccessed());
+        System.out.println("B(indexVehicleModel) = " + modelIndexInfo.getBlockAccessed());
 
         IndexInfo priceIndexInfo = indexInfoMap.get("price");
-        System.out.println("B(indexVehiclePrice) = " + priceIndexInfo.blockAccessed());
+        System.out.println("B(indexVehiclePrice) = " + priceIndexInfo.getBlockAccessed());
 
         tx.commit();
 

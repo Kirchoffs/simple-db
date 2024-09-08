@@ -47,7 +47,7 @@ public class IndexManager {
                 String fieldName = ts.getString("fieldName");
                 Layout tableLayout = tableManager.getLayout(tableName, tx);
                 StatInfo tableStatInfo = statManager.getStatInfo(tableName, tableLayout, tx);
-                IndexInfo indexInfo = new IndexInfo(indexName, fieldName, tableLayout.getSchema(), tx, tableStatInfo);
+                IndexInfo indexInfo = new IndexInfo(indexName, fieldName, tableLayout.schema(), tx, tableStatInfo);
                 res.put(fieldName, indexInfo);
             }
         }

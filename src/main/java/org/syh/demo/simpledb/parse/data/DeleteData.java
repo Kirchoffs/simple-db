@@ -1,6 +1,6 @@
 package org.syh.demo.simpledb.parse.data;
 
-import org.syh.demo.simpledb.parse.Predicate;
+import org.syh.demo.simpledb.parse.models.Predicate;
 
 public class DeleteData {
     private String tableName;
@@ -11,11 +11,11 @@ public class DeleteData {
         this.predicate = predicate;
     }
 
-    public String getTableName() {
+    public String tableName() {
         return tableName;
     }
 
-    public Predicate getPredicate() {
+    public Predicate predicate() {
         return predicate;
     }
 

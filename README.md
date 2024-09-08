@@ -1,5 +1,5 @@
 # simple-db
-Reference: `Database Design and Implementation` by Edward Sciore
+Reference: ___Database Design and Implementation___ by __Edward Sciore__.
 
 ## Database Notes
 ### Buffer Page & Log Page
@@ -132,7 +132,7 @@ f.getChannel().write(page.contents());
 Write from byte array:
 ```
 byte[] bytes = new byte[blockSize];
-RandomAccessFile f = getFile(filename);
+RandomAccessFile f = getFile(fileName);
 f.seek(newBlockNum * blockSize);
 f.write(bytes);
 ```

@@ -55,7 +55,7 @@ public class StatManager {
         TableScan ts = new TableScan(tx, tableName, layout);
         while (ts.next()) {
             numRecords++;
-            numBlocks = ts.getRid().getBlockNum() + 1;
+            numBlocks = ts.getRid().blockNum() + 1;
         }
         ts.close();
 

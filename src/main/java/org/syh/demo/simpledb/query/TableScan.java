@@ -1,7 +1,7 @@
 package org.syh.demo.simpledb.query;
 
 import org.syh.demo.simpledb.file.BlockId;
-import org.syh.demo.simpledb.parse.Constant;
+import org.syh.demo.simpledb.parse.models.Constant;
 import org.syh.demo.simpledb.record.FieldType;
 import org.syh.demo.simpledb.record.Layout;
 import org.syh.demo.simpledb.record.RecordPage;
@@ -29,7 +29,7 @@ public class TableScan implements UpdateScan {
 
     public void close() {
         if (recordPage != null) {
-            tx.unpin(recordPage.getBlockId());
+            tx.unpin(recordPage.blockId());
         }
     }
 
@@ -52,20 +52,22 @@ public class TableScan implements UpdateScan {
         moveToBlock(0);
     }
 
+    // Move to the next record in the table.
+    // Return false if there is no next record.
     public boolean next() {
         currentSlot = recordPage.nextAfter(currentSlot);
         while (currentSlot < 0) {
             if (atLastBlock()) {
                 return false;
             }
-            moveToBlock(recordPage.getBlockId().getBlockNum() + 1);
+            moveToBlock(recordPage.blockId().blockNum() + 1);
             currentSlot = recordPage.nextAfter(currentSlot);
         }
         return true;
     }
 
     private boolean atLastBlock() {
-        return recordPage.getBlockId().getBlockNum() == tx.size(fileName) - 1;
+        return recordPage.blockId().blockNum() == tx.size(fileName) - 1;
     }
 
     public int getInt(String fieldName) {
@@ -77,7 +79,7 @@ public class TableScan implements UpdateScan {
     }
 
     public Constant getVal(String fieldName) {
-        if (layout.getSchema().type(fieldName) == FieldType.INTEGER) {
+        if (layout.schema().getType(fieldName) == FieldType.INTEGER) {
             return new Constant(getInt(fieldName));
         } else {
             return new Constant(getString(fieldName));
@@ -85,7 +87,7 @@ public class TableScan implements UpdateScan {
     }
 
     public boolean hasField(String fieldName) {
-        return layout.getSchema().hasField(fieldName);
+        return layout.schema().hasField(fieldName);
     }
 
     public void setInt(String fieldName, int value) {
@@ -97,7 +99,7 @@ public class TableScan implements UpdateScan {
     }
 
     public void setVal(String fieldName, Constant value) {
-        if (layout.getSchema().type(fieldName) == FieldType.INTEGER) {
+        if (layout.schema().getType(fieldName) == FieldType.INTEGER) {
             setInt(fieldName, value.asInt());
         } else {
             setString(fieldName, value.asString());
@@ -110,7 +112,7 @@ public class TableScan implements UpdateScan {
             if (atLastBlock()) {
                 moveToNewBlock();
             } else {
-                moveToBlock(recordPage.getBlockId().getBlockNum() + 1);
+                moveToBlock(recordPage.blockId().blockNum() + 1);
             }
             currentSlot = recordPage.insertAfter(currentSlot);
         }
@@ -122,12 +124,12 @@ public class TableScan implements UpdateScan {
 
     public void moveToRid(Rid rid) {
         close();
-        BlockId blockId = new BlockId(fileName, rid.getBlockNum());
+        BlockId blockId = new BlockId(fileName, rid.blockNum());
         recordPage = new RecordPage(tx, blockId, layout);
-        currentSlot = rid.getSlot();
+        currentSlot = rid.slot();
     }
 
     public Rid getRid() {
-        return new Rid(recordPage.getBlockId().getBlockNum(), currentSlot);
+        return new Rid(recordPage.blockId().blockNum(), currentSlot);
     }
 }

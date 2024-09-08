@@ -1,6 +1,6 @@
 package org.syh.demo.simpledb.parse.data;
 
-import org.syh.demo.simpledb.parse.Constant;
+import org.syh.demo.simpledb.parse.models.Constant;
 import org.syh.demo.simpledb.utils.Pair;
 
 import java.util.ArrayList;
@@ -8,42 +8,42 @@ import java.util.List;
 
 public class InsertData {
     private String tableName;
-    private List<String> fields;
+    private List<String> fieldNames;
     private List<Constant> values;
-    private List<Pair<String, Constant>> fieldValues;
+    private List<Pair<String, Constant>> fields;
 
-    public InsertData(String tableName, List<String> fields, List<Constant> values) {
+    public InsertData(String tableName, List<String> fieldNames, List<Constant> values) {
         this.tableName = tableName;
-        this.fields = fields;
+        this.fieldNames = fieldNames;
         this.values = values;
-        this.fieldValues = new ArrayList<>();
+        this.fields = new ArrayList<>();
         for (int i = 0; i < fields.size(); i++) {
-            fieldValues.add(new Pair<>(fields.get(i), values.get(i)));
+            fields.add(new Pair<>(fieldNames.get(i), values.get(i)));
         }
     }
 
-    public String getTableName() {
+    public String tableName() {
         return tableName;
     }
 
-    public List<String> getFields() {
-        return fields;
+    public List<String> fieldNames() {
+        return fieldNames;
     }
 
-    public List<Constant> getValues() {
+    public List<Constant> values() {
         return values;
     }
 
-    public List<Pair<String, Constant>> getFieldValues() {
-        return fieldValues;
+    public List<Pair<String, Constant>> fields() {
+        return fields;
     }
 
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("INSERT INTO ");
         result.append(tableName).append(" (");
-        for (String field : fields) {
-            result.append(field).append(", ");
+        for (String fieldName : fieldNames) {
+            result.append(fieldName).append(", ");
         }
         result.setLength(result.length() - 2);
         result.append(") ");

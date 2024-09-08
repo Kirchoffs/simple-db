@@ -10,9 +10,9 @@ import java.io.File;
 import java.util.Iterator;
 
 public class LogManagerTest {
-    private static String DIR_PATH = "src/test/resources/log-test/";
-    private static String LOG_FILE_NAME = "test-log-file";
-    private static int BLOCK_SIZE = 256;
+    private static final String DIR_PATH = "src/test/resources/log-test/";
+    private static final String LOG_FILE_NAME = "test-log-file";
+    private static final int BLOCK_SIZE = 256;
 
     private File directory;
 

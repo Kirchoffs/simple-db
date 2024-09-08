@@ -14,11 +14,11 @@ import org.syh.demo.simpledb.transaction.Transaction;
 import java.io.File;
 
 public class TableScanTest {
-    private static String DIR_PATH = "src/test/resources/record-test/";
-    private static String TABLE_NAME = "test-data-file";
-    private static String DATA_FILE_NAME = TABLE_NAME + ".tbl";
-    private static String LOG_FILE_NAME = "test-log-file";
-    private static int BLOCK_SIZE = 1024;
+    private static final String DIR_PATH = "src/test/resources/record-test/";
+    private static final String TABLE_NAME = "test-data-file";
+    private static final String DATA_FILE_NAME = TABLE_NAME + ".tbl";
+    private static final String LOG_FILE_NAME = "test-log-file";
+    private static final int BLOCK_SIZE = 1024;
 
     private File directory;
 
@@ -47,7 +47,7 @@ public class TableScanTest {
         schema.addIntField("A");
         schema.addStringField("B", 9);
         Layout layout = new Layout(schema);
-        for (String fieldName : layout.getSchema().fields()) {
+        for (String fieldName : layout.schema().fields()) {
             int offset = layout.getOffset(fieldName);
             System.out.println(fieldName + " has offset " + offset);
         }

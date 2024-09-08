@@ -43,6 +43,6 @@ public class TablePlan implements Plan {
 
     @Override
     public Schema schema() {
-        return layout.getSchema();
+        return layout.schema();
     }
 }

@@ -7,6 +7,10 @@ import org.syh.demo.simpledb.parse.data.DeleteData;
 import org.syh.demo.simpledb.parse.data.InsertData;
 import org.syh.demo.simpledb.parse.data.QueryData;
 import org.syh.demo.simpledb.parse.data.UpdateData;
+import org.syh.demo.simpledb.parse.models.Constant;
+import org.syh.demo.simpledb.parse.models.Expression;
+import org.syh.demo.simpledb.parse.models.Predicate;
+import org.syh.demo.simpledb.parse.models.Term;
 import org.syh.demo.simpledb.record.Schema;
 
 import java.util.ArrayList;

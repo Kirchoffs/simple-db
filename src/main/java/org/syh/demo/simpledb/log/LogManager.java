@@ -20,7 +20,7 @@ public class LogManager {
         this.fileManager = fileManager;
         this.logFile = logFile;
 
-        logPage = new Page(new byte[fileManager.getBlockSize()]);
+        logPage = new Page(new byte[fileManager.blockSize()]);
 
         int logFileBlockSize = fileManager.length(logFile);
         if (logFileBlockSize == 0) {
@@ -64,7 +64,7 @@ public class LogManager {
 
     private BlockId appendNewBlock() {
         BlockId blockId = fileManager.append(logFile);
-        logPage.setFirstInt(fileManager.getBlockSize()); // Initial boundary value
+        logPage.setFirstInt(fileManager.blockSize()); // Initial boundary value
         fileManager.write(blockId, logPage);
         return blockId;
     }

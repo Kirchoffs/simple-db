@@ -1,39 +1,39 @@
 package org.syh.demo.simpledb.parse.data;
 
-import org.syh.demo.simpledb.parse.Expression;
-import org.syh.demo.simpledb.parse.Predicate;
+import org.syh.demo.simpledb.parse.models.Expression;
+import org.syh.demo.simpledb.parse.models.Predicate;
 
 public class UpdateData {
     private String tableName;
-    private String field;
+    private String fieldName;
     private Expression value;
     private Predicate predicate;
 
-    public UpdateData(String tableName, String field, Expression value, Predicate predicate) {
+    public UpdateData(String tableName, String fieldName, Expression value, Predicate predicate) {
         this.tableName = tableName;
-        this.field = field;
+        this.fieldName = fieldName;
         this.value = value;
         this.predicate = predicate;
     }
 
-    public String getTableName() {
+    public String tableName() {
         return tableName;
     }
 
-    public String getField() {
-        return field;
+    public String fieldName() {
+        return fieldName;
     }
 
-    public Expression getValue() {
+    public Expression value() {
         return value;
     }
 
-    public Predicate getPredicate() {
+    public Predicate predicate() {
         return predicate;
     }
 
     @Override
     public String toString() {
-        return "UPDATE " + tableName + " SET " + field + " = " + value + " WHERE " + predicate;
+        return "UPDATE " + tableName + " SET " + fieldName + " = " + value + " WHERE " + predicate;
     }
 }

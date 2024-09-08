@@ -1,4 +1,4 @@
-package org.syh.demo.simpledb.parse;
+package org.syh.demo.simpledb.parse.models;
 
 public class Constant implements Comparable<Constant> {
     private Integer ival = null;

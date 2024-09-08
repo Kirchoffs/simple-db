@@ -12,11 +12,11 @@ import org.syh.demo.simpledb.log.LogManager;
 import java.io.File;
 
 public class BufferManagerTest {
-    private static String DIR_PATH = "src/test/resources/buffer-test/";
-    private static String DATA_FILE_NAME = "test-data-file";
-    private static String LOG_FILE_NAME = "test-log-file";
-    private static int BLOCK_SIZE = 1024;
-    private static int BUFFER_POOL_SIZE = 3;
+    private static final String DIR_PATH = "src/test/resources/buffer-test/";
+    private static final  String DATA_FILE_NAME = "test-data-file";
+    private static final  String LOG_FILE_NAME = "test-log-file";
+    private static final int BLOCK_SIZE = 1024;
+    private static final int BUFFER_POOL_SIZE = 3;
 
     private File directory;
 
@@ -47,8 +47,8 @@ public class BufferManagerTest {
         buffers[3] = bufferManager.pin(new BlockId(DATA_FILE_NAME, 0));    // block 0 pinned twice
         buffers[4] = bufferManager.pin(new BlockId(DATA_FILE_NAME, 1));    // block 1 re-pinned
 
-        System.out.println("Available buffers: " + bufferManager.getNumAvailable());
-        Assert.assertEquals(0, bufferManager.getNumAvailable());
+        System.out.println("Available buffers: " + bufferManager.numAvailable());
+        Assert.assertEquals(0, bufferManager.numAvailable());
 
         try {
             System.out.println("Attempting to pin block 3...");
@@ -66,7 +66,7 @@ public class BufferManagerTest {
         for (int i = 0; i < buffers.length; i++) {
             Buffer buffer = buffers[i];
             if (buffer != null) {
-                System.out.println("buff[" + i + "] pinned to block " + buffer.getBlockId());
+                System.out.println("buff[" + i + "] pinned to block " + buffer.blockId());
             }
         }
     }

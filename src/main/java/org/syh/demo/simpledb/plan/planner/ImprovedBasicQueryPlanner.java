@@ -22,7 +22,7 @@ public class ImprovedBasicQueryPlanner implements QueryPlanner {
 
     public Plan createPlan(QueryData data, Transaction tx) {
         Queue<Plan> plans = new ArrayDeque<>();
-        for (String tableName : data.tables()) {
+        for (String tableName : data.tableNames()) {
             String viewDef = metadataManager.getViewDef(tableName, tx);
             if (viewDef != null) {
                 Parser parser = new Parser(viewDef);
@@ -46,7 +46,7 @@ public class ImprovedBasicQueryPlanner implements QueryPlanner {
 
         plan = new SelectPlan(plan, data.predicate());
 
-        plan = new ProjectPlan(plan, data.fields());
+        plan = new ProjectPlan(plan, data.fieldNames());
 
         return plan;
     }

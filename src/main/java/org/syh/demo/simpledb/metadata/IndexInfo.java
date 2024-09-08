@@ -1,6 +1,7 @@
 package org.syh.demo.simpledb.metadata;
 
 import org.syh.demo.simpledb.index.Index;
+import org.syh.demo.simpledb.index.btree.BTreeIndex;
 import org.syh.demo.simpledb.record.FieldType;
 import org.syh.demo.simpledb.record.Layout;
 import org.syh.demo.simpledb.record.Schema;
@@ -24,11 +25,11 @@ public class IndexInfo {
     }
 
     public Index open() {
-        return null;
+        return new BTreeIndex(tx, indexName, indexLayout);
     }
 
-    public int blockAccessed() {
-        int rpb = tx.getBlockSize() / indexLayout.getSlotSize();
+    public int getBlockAccessed() {
+        int rpb = tx.getBlockSize() / indexLayout.slotSize();
         int numBlocks = statInfo.recordsOutput() / rpb;
         return -1;
     }
@@ -37,11 +38,19 @@ public class IndexInfo {
         Schema schema = new Schema();
         schema.addIntField("blockNum");
         schema.addIntField("slot");
-        if (tableSchema.type(fieldName) == FieldType.INTEGER) {
-            schema.addIntField("value");
+        if (tableSchema.getType(fieldName) == FieldType.INTEGER) {
+            schema.addIntField("dataVal");
         } else {
-            schema.addStringField("value", tableSchema.length(fieldName));
+            schema.addStringField("dataVal", tableSchema.length(fieldName));
         }
         return new Layout(schema);
+    }
+
+    public int getRecordsOutput() {
+        return statInfo.recordsOutput() / statInfo.distinctValues(fieldName);
+    }
+
+    public int getDistinctValues(String fieldName) {
+        return this.fieldName.equals(fieldName) ? 1 : statInfo.distinctValues(fieldName);
     }
 }

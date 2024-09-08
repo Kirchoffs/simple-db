@@ -4,7 +4,7 @@
 ### Types
 There are four basic kinds of log records: start records, commit records, rollback records, and update records.
 
-In the code, it is: START, COMMIT, ROLLBACK, SETINT, SETSTRING
+In the code (simple-db), it is: START, COMMIT, ROLLBACK, SETINT, SETSTRING
 
 ### Format
 ```
@@ -183,7 +183,17 @@ All transactions, regardless of their isolation level, should behave correctly w
 They must obtain the appropriate xlocks (including the xlock on the eof marker) and hold them to completion.
 
 ## Transaction in Project
+### How to pin a block
+Given a block, the transaction needs to pin the block in the buffer pool and return the corresponding buffer.  
+Each transaction has its own pinned buffer list. 
+
+1. BufferManager checks if the block is already in the buffer pool, if so, it will return the buffer.
+2. If not, it will check if there is an unpinned buffer in the buffer pool. If there is, it will read the block from the disk to the buffer. 
+3. If not, it will wait until some buffers are available in the buffer pool or the timeout is reached. If it still cannot get the block, it will throw an exception.
+
 ### How to read an integer value from a block
+Before reading or writing a block, the transaction needs to pin the block in the buffer pool.
+
 1. ConcurrencyManager acquires a slock on the block.
 2. Get the buffer from BufferManager.
 3. BufferManager returns the value from the buffer based on the offset.

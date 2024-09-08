@@ -5,7 +5,11 @@
 - `term` is composed of `factor`. 
 - `factor` is composed of `primary`.
 
-simple-db does not follow the above structure actually.
+In short:  
+`statement` -> `expression` -> `term` -> `factor` -> `primary`
+
+simple-db actually does not follow the above structure:  
+`predicate` -> `term` -> `expression` -> `constant`
 
 ### Example
 ```

@@ -3,6 +3,7 @@ package org.syh.demo.simpledb.transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.syh.demo.simpledb.CommonTestUtils;
 import org.syh.demo.simpledb.buffer.BufferManager;
 import org.syh.demo.simpledb.file.BlockId;
 import org.syh.demo.simpledb.file.FileManager;
@@ -10,15 +11,16 @@ import org.syh.demo.simpledb.log.LogManager;
 
 import java.io.File;
 
+import static org.syh.demo.simpledb.CommonTestConstants.BLOCK_SIZE;
+import static org.syh.demo.simpledb.CommonTestConstants.BUFFER_POOL_SIZE;
+
 public class TransactionTest {
     private FileManager fileManager;
     private LogManager logManager;
     private BufferManager bufferManager;
 
-    private static String DIR_PATH = "src/test/resources/concurrency-test/";
-    private static String LOG_FILE_NAME = "test-log-file";
-    private static int BLOCK_SIZE = 1024;
-    private static int BUFFER_POOL_SIZE = 3;
+    private static final String DIR_PATH = "src/test/resources/concurrency-test/";
+    private static final String LOG_FILE_NAME = "test-log-file";
 
     private File directory;
 
@@ -29,24 +31,12 @@ public class TransactionTest {
         logManager = new LogManager(fileManager, LOG_FILE_NAME);
         bufferManager = new BufferManager(fileManager, logManager, BUFFER_POOL_SIZE);
 
-        deleteFiles();
+        CommonTestUtils.clearTestDir(directory);
     }
 
     @After
     public void cleanup() {
-        deleteFiles();
-    }
-
-    private void deleteFiles() {
-        File[] files = directory.listFiles();
-
-        if (files != null) {
-            for (File file : files) {
-                if (file.getName().startsWith("test")) {
-                    file.delete();
-                }
-            }
-        }
+        CommonTestUtils.clearTestDir(directory);
     }
 
     @Test
